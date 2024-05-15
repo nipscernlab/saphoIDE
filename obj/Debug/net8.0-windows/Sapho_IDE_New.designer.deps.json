@@ -6,6 +6,42 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v8.0": {
+      "AvalonEdit/6.3.0.90": {
+        "runtime": {
+          "lib/net7.0-windows7.0/ICSharpCode.AvalonEdit.dll": {
+            "assemblyVersion": "6.3.0.90",
+            "fileVersion": "6.3.0.90"
+          }
+        }
+      },
+      "BotTimeICSharpCode.AvalonEdit/1.0.2": {
+        "runtime": {
+          "lib/net45/BotTimeICSharpCode.AvalonEdit.dll": {
+            "assemblyVersion": "1.0.1.0",
+            "fileVersion": "1.0.1.0"
+          },
+          "lib/net45/ICSharpCode.NRefactory.CSharp.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.5.0.0"
+          },
+          "lib/net45/ICSharpCode.NRefactory.Cecil.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.5.0.0"
+          },
+          "lib/net45/ICSharpCode.NRefactory.Xml.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.5.0.0"
+          },
+          "lib/net45/ICSharpCode.NRefactory.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.5.0.0"
+          },
+          "lib/net45/Mono.Cecil.dll": {
+            "assemblyVersion": "0.9.5.0",
+            "fileVersion": "0.9.5.0"
+          }
+        }
+      },
       "ControlzEx/4.4.0": {
         "dependencies": {
           "Microsoft.Xaml.Behaviors.Wpf": "1.1.19",
@@ -729,6 +765,20 @@
     }
   },
   "libraries": {
+    "AvalonEdit/6.3.0.90": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-WVTb5MxwGqKdeasd3nG5udlV4t6OpvkFanziwI133K0/QJ5FvZmfzRQgpAjGTJhQfIA8GP7AzKQ3sTY9JOFk8Q==",
+      "path": "avalonedit/6.3.0.90",
+      "hashPath": "avalonedit.6.3.0.90.nupkg.sha512"
+    },
+    "BotTimeICSharpCode.AvalonEdit/1.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-BY9FSQ9vo/25Ow+cOlK9fwF2ufKIiEvkjYlZs803GKqYNKROJQuHfD3aq9Mu6oZvydpP0TqHhZn/cSc1N1M92Q==",
+      "path": "bottimeicsharpcode.avalonedit/1.0.2",
+      "hashPath": "bottimeicsharpcode.avalonedit.1.0.2.nupkg.sha512"
+    },
     "ControlzEx/4.4.0": {
       "type": "package",
       "serviceable": true,

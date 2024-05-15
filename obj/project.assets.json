@@ -2,6 +2,45 @@
   "version": 3,
   "targets": {
     "net8.0-windows7.0": {
+      "AvalonEdit/6.3.0.90": {
+        "type": "package",
+        "compile": {
+          "lib/net7.0-windows7.0/ICSharpCode.AvalonEdit.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0-windows7.0/ICSharpCode.AvalonEdit.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App"
+        ]
+      },
+      "BotTimeICSharpCode.AvalonEdit/1.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/net45/BotTimeICSharpCode.AvalonEdit.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/ICSharpCode.NRefactory.CSharp.dll": {},
+          "lib/net45/ICSharpCode.NRefactory.Cecil.dll": {},
+          "lib/net45/ICSharpCode.NRefactory.Xml.dll": {},
+          "lib/net45/ICSharpCode.NRefactory.dll": {},
+          "lib/net45/Mono.Cecil.dll": {}
+        },
+        "runtime": {
+          "lib/net45/BotTimeICSharpCode.AvalonEdit.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/ICSharpCode.NRefactory.CSharp.dll": {},
+          "lib/net45/ICSharpCode.NRefactory.Cecil.dll": {},
+          "lib/net45/ICSharpCode.NRefactory.Xml.dll": {},
+          "lib/net45/ICSharpCode.NRefactory.dll": {},
+          "lib/net45/Mono.Cecil.dll": {}
+        }
+      },
       "ControlzEx/4.4.0": {
         "type": "package",
         "dependencies": {
@@ -923,6 +962,43 @@
     }
   },
   "libraries": {
+    "AvalonEdit/6.3.0.90": {
+      "sha512": "WVTb5MxwGqKdeasd3nG5udlV4t6OpvkFanziwI133K0/QJ5FvZmfzRQgpAjGTJhQfIA8GP7AzKQ3sTY9JOFk8Q==",
+      "type": "package",
+      "path": "avalonedit/6.3.0.90",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "PackageReadme.md",
+        "avalonedit.6.3.0.90.nupkg.sha512",
+        "avalonedit.nuspec",
+        "images/AvalonEditNuGetPackageIcon.png",
+        "lib/net462/ICSharpCode.AvalonEdit.dll",
+        "lib/net462/ICSharpCode.AvalonEdit.xml",
+        "lib/net6.0-windows7.0/ICSharpCode.AvalonEdit.dll",
+        "lib/net6.0-windows7.0/ICSharpCode.AvalonEdit.xml",
+        "lib/net7.0-windows7.0/ICSharpCode.AvalonEdit.dll",
+        "lib/net7.0-windows7.0/ICSharpCode.AvalonEdit.xml"
+      ]
+    },
+    "BotTimeICSharpCode.AvalonEdit/1.0.2": {
+      "sha512": "BY9FSQ9vo/25Ow+cOlK9fwF2ufKIiEvkjYlZs803GKqYNKROJQuHfD3aq9Mu6oZvydpP0TqHhZn/cSc1N1M92Q==",
+      "type": "package",
+      "path": "bottimeicsharpcode.avalonedit/1.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "bottimeicsharpcode.avalonedit.1.0.2.nupkg.sha512",
+        "bottimeicsharpcode.avalonedit.nuspec",
+        "lib/net45/BotTimeICSharpCode.AvalonEdit.dll",
+        "lib/net45/BotTimeICSharpCode.AvalonEdit.xml",
+        "lib/net45/ICSharpCode.NRefactory.CSharp.dll",
+        "lib/net45/ICSharpCode.NRefactory.Cecil.dll",
+        "lib/net45/ICSharpCode.NRefactory.Xml.dll",
+        "lib/net45/ICSharpCode.NRefactory.dll",
+        "lib/net45/Mono.Cecil.dll"
+      ]
+    },
     "ControlzEx/4.4.0": {
       "sha512": "pZ5z4hYWwE4R13UMCVs6vII//nL7hz+Nwn4oJlnsZJRGqJNy6Z9KnJiTZfly6lKFu0pMc1aWBZpx+VqFTQKP1Q==",
       "type": "package",
@@ -3214,6 +3290,8 @@
   },
   "projectFileDependencyGroups": {
     "net8.0-windows7.0": [
+      "AvalonEdit >= 6.3.0.90",
+      "BotTimeICSharpCode.AvalonEdit >= 1.0.2",
       "MahApps.Metro >= 2.4.10",
       "Newtonsoft.Json >= 13.0.3",
       "WindowsAPICodePack >= 7.0.4"
@@ -3263,6 +3341,14 @@
       "net8.0-windows7.0": {
         "targetAlias": "net8.0-windows",
         "dependencies": {
+          "AvalonEdit": {
+            "target": "Package",
+            "version": "[6.3.0.90, )"
+          },
+          "BotTimeICSharpCode.AvalonEdit": {
+            "target": "Package",
+            "version": "[1.0.2, )"
+          },
           "MahApps.Metro": {
             "target": "Package",
             "version": "[2.4.10, )"
@@ -3298,5 +3384,17 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "O pacote 'BotTimeICSharpCode.AvalonEdit 1.0.2' foi restaurado usando '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' em vez da estrutura de destino do projeto 'net8.0-windows7.0'. Esse pacote pode não ser totalmente compatível com o seu projeto.",
+      "libraryId": "BotTimeICSharpCode.AvalonEdit",
+      "targetGraphs": [
+        "net8.0-windows7.0"
+      ]
+    }
+  ]
 }

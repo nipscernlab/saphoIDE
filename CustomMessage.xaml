@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:Sapho_IDE_New"
         mc:Ignorable="d"
         Title="SAPHO IDE" Width="650" Height="250" ResizeMode="NoResize"
-        Icon="C:\Users\LCOM\Desktop\saphoIDE\Sapho_atual\Sapho_IDE\1498583471_kcmprocessor.ico"
+        Icon="/Icons/1498583471_kcmprocessor.ico"
         Background="#242424">
     <Grid>
-        <TextBlock Text="{Binding Message}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="12"/>
+        <TextBlock Text="{Binding Message}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="16"/>
     </Grid>
 </Window>

@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "YGFTFuIlr4fU2jC/6WGB61+mFQrUuv/crcMxUJWICShXW8cmBhcgHtr5OtXH37u9w+5SXv9fBS5LaKWZaO0aqg==",
+  "dgSpecHash": "9hXm438Myt0s5DEnNqvMpSVLvnDlIQwQqws0Py62QD35QUM+JsAJ/9jHAeCDfa7/JqQU6d5dHEKO0mhZevEEHw==",
   "success": true,
   "projectFilePath": "C:\\Users\\LCOM\\Desktop\\Github\\saphoIDE\\Sapho_IDE_New.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\LCOM\\.nuget\\packages\\avalonedit\\6.3.0.90\\avalonedit.6.3.0.90.nupkg.sha512",
+    "C:\\Users\\LCOM\\.nuget\\packages\\bottimeicsharpcode.avalonedit\\1.0.2\\bottimeicsharpcode.avalonedit.1.0.2.nupkg.sha512",
     "C:\\Users\\LCOM\\.nuget\\packages\\controlzex\\4.4.0\\controlzex.4.4.0.nupkg.sha512",
     "C:\\Users\\LCOM\\.nuget\\packages\\mahapps.metro\\2.4.10\\mahapps.metro.2.4.10.nupkg.sha512",
     "C:\\Users\\LCOM\\.nuget\\packages\\microsoft.netcore.platforms\\7.0.0\\microsoft.netcore.platforms.7.0.0.nupkg.sha512",
@@ -60,5 +62,16 @@
     "C:\\Users\\LCOM\\.nuget\\packages\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512",
     "C:\\Users\\LCOM\\.nuget\\packages\\windowsapicodepack\\7.0.4\\windowsapicodepack.7.0.4.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "O pacote 'BotTimeICSharpCode.AvalonEdit 1.0.2' foi restaurado usando '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' em vez da estrutura de destino do projeto 'net8.0-windows7.0'. Esse pacote pode não ser totalmente compatível com o seu projeto.",
+      "libraryId": "BotTimeICSharpCode.AvalonEdit",
+      "targetGraphs": [
+        "net8.0-windows7.0"
+      ]
+    }
+  ]
 }

@@ -3,10 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
         xmlns:local="clr-namespace:Sapho_IDE_New"
         mc:Ignorable="d"
         Title="SAPHO IDE" MinWidth="800" MinHeight="600"
-        Icon="C:\Users\LCOM\Desktop\saphoIDE\Sapho_atual\Sapho_IDE\1498583471_kcmprocessor.ico"
+        Icon="/Icons/1498583471_kcmprocessor.ico"
         Background="#242424">
 
     <Window.Resources>
@@ -31,11 +32,11 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
 
 
         <!-- Menu suspenso para o botão "File" -->
-      
+
 
         <ContextMenu x:Key="FileMenu" Style="{StaticResource ContextMenuStyle}" StaysOpen="False">
             <MenuItem Header="New Project" Click="OpenNewProject_Click"/>
@@ -43,7 +44,7 @@
             <MenuItem Header="Save All"/>
             <MenuItem Header="Save Backup"/>
             <MenuItem Header="Exit"/>
-            
+
         </ContextMenu>
 
         <!-- Menu suspenso para o botão "Help" -->
@@ -56,7 +57,7 @@
 
     <Grid>
 
-        
+
 
         <Grid.ColumnDefinitions>
             <!-- Definição de coluna para o retângulo cinza -->
@@ -64,7 +65,7 @@
             <!-- Definição de coluna para o conteúdo -->
             <ColumnDefinition Width="8*"/>
         </Grid.ColumnDefinitions>
-        
+
 
         <!-- Botões no topo da janela -->
         <Border Background="#333333" Height="48" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="10,0,10,0" CornerRadius="5">
@@ -100,5 +101,19 @@
 
         <!-- Painel redimensionável -->
         <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Left" ResizeDirection="Columns" Margin="0,68,0,10"/>
+
+        <avalonedit:TextEditor Name="CodeEditor" Grid.Column="1" Margin="10,68,10,10"/>
+        <TabControl FontSize="15" Grid.Column="1" Margin="10,68,10,10">
+            <TabItem Header="File 1">
+                <avalonedit:TextEditor Name="CodeEditor1"/>
+            </TabItem>
+            <TabItem Header="File 2">
+                <avalonedit:TextEditor Name="CodeEditor2"/>
+            </TabItem>
+        </TabControl>
+
+
+
+
     </Grid>
 </Window>

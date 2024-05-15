@@ -9,6 +9,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml;
+using System.IO;
+using ICSharpCode.AvalonEdit.Highlighting;
+using ICSharpCode.AvalonEdit.Highlighting.Xshd;
+using System.Reflection;
+
+
 
 
 namespace Sapho_IDE_New
@@ -21,6 +28,18 @@ namespace Sapho_IDE_New
         public MainWindow()
         {
             InitializeComponent();
+
+            using (Stream s = File.OpenRead("CPP-Mode.xshd"))
+            {
+                if (s != null)
+                {
+                    using (XmlTextReader reader = new XmlTextReader(s))
+                    {
+                        CodeEditor.SyntaxHighlighting = HighlightingLoader.Load(reader, HighlightingManager.Instance);
+                    }
+                }
+            }
+
         }
 
         private void OpenFileMenu(object sender, RoutedEventArgs e)

@@ -49,7 +49,7 @@ namespace Sapho_IDE_New
                 catch (Exception ex)
                 {
                     // Verifica se a mensagem de erro ultrapassa 50 caracteres e corta, se necessário
-                    string errorMessageText = ex.Message.Length > 100 ? ex.Message.Substring(0, Math.Min(ex.Message.Length, 100)) + "..." : ex.Message;
+                    string errorMessageText = ex.Message.Length > 100 ? ex.Message.Substring(0, Math.Min(ex.Message.Length, 75)) + "..." : ex.Message;
 
                     // Exibe a mensagem de erro usando a janela personalizada
                     CustomMessageBox errorMessage = new CustomMessageBox($"An error occurred while creating the project:\n{errorMessageText}");

@@ -1,0 +1,104 @@
+﻿<Window x:Class="Sapho_IDE_New.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Sapho_IDE_New"
+        mc:Ignorable="d"
+        Title="MainWindow" MinWidth="800" MinHeight="600"
+        Icon="C:\Users\LCOM\Desktop\saphoIDE\Sapho_atual\Sapho_IDE\1498583471_kcmprocessor.ico"
+        Background="#444444">
+
+    <Window.Resources>
+        <!-- Estilo personalizado para o menu suspenso -->
+        <Style x:Key="ContextMenuStyle" TargetType="{x:Type ContextMenu}">
+            <Setter Property="Background" Value="#333333"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Placement" Value="Bottom"/>
+            <Setter Property="VerticalOffset" Value="3"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="MinWidth" Value="150"/>
+            <!-- Define a largura mínima -->
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="MenuItem">
+                        <Setter Property="Padding" Value="10"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <!-- Centraliza o texto horizontalmente -->
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+
+
+        <!-- Menu suspenso para o botão "File" -->
+      
+
+        <ContextMenu x:Key="FileMenu" Style="{StaticResource ContextMenuStyle}" StaysOpen="False">
+            <MenuItem Header="New Project" Click="OpenNewProject_Click"/>
+            <MenuItem Header="Open Project" Click="OpenFileMenu_Click"/>
+            <MenuItem Header="Save All"/>
+            <MenuItem Header="Save Backup"/>
+            <MenuItem Header="Exit"/>
+            
+        </ContextMenu>
+
+        <!-- Menu suspenso para o botão "Help" -->
+        <ContextMenu x:Key="HelpMenu" Style="{StaticResource ContextMenuStyle}" StaysOpen="False">
+            <MenuItem Header="About"/>
+            <MenuItem Header="Documentation"/>
+            <MenuItem Header="Support"/>
+        </ContextMenu>
+    </Window.Resources>
+
+    <Grid>
+
+        
+
+        <Grid.ColumnDefinitions>
+            <!-- Definição de coluna para o retângulo cinza -->
+            <ColumnDefinition Width="2*"/>
+            <!-- Definição de coluna para o conteúdo -->
+            <ColumnDefinition Width="8*"/>
+        </Grid.ColumnDefinitions>
+        
+
+        <!-- Botões no topo da janela -->
+        <Border Background="#333333" Height="48" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="10,0,10,0" CornerRadius="5">
+            <StackPanel Orientation="Horizontal">
+                <!-- Botão "File" -->
+                <Button Content="File" FontSize="16" Margin="10" Height="24">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                            <EventSetter Event="Click" Handler="OpenFileMenu"/>
+                        </Style>
+                    </Button.Style>
+                </Button>
+
+                <!-- Botão "Help" -->
+                <Button Content="Help" FontSize="16" Margin="10" Height="24">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                            <EventSetter Event="Click" Handler="OpenHelpMenu"/>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </StackPanel>
+        </Border>
+
+        <!-- Retângulo na vertical no lado esquerdo -->
+        <Border Grid.Column="0" Background="Gray" Margin="10,68,10,10" CornerRadius="10"/>
+
+        <!-- Painel redimensionável -->
+        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Left" ResizeDirection="Columns" Margin="0,68,0,10"/>
+    </Grid>
+</Window>

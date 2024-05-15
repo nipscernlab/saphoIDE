@@ -1,0 +1,14 @@
+﻿<Window x:Class="Sapho_IDE_New.NewProj"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Sapho_IDE_New"
+        mc:Ignorable="d"
+        Title="NewProj" Height="400" Width="800"
+        Icon="C:\Users\LCOM\Desktop\saphoIDE\Sapho_atual\Sapho_IDE\1498583471_kcmprocessor.ico"
+        Background="#444444">
+    <Grid>
+        
+    </Grid>
+</Window>

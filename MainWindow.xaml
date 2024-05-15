@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sapho_IDE_New"
         mc:Ignorable="d"
-        Title="MainWindow" MinWidth="800" MinHeight="600"
+        Title="SAPHO IDE" MinWidth="800" MinHeight="600"
         Icon="C:\Users\LCOM\Desktop\saphoIDE\Sapho_atual\Sapho_IDE\1498583471_kcmprocessor.ico"
-        Background="#444444">
+        Background="#242424">
 
     <Window.Resources>
         <!-- Estilo personalizado para o menu suspenso -->

@@ -1,14 +1,59 @@
 ﻿<Window x:Class="Sapho_IDE_New.NewProj"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Sapho_IDE_New"
-        mc:Ignorable="d"
-        Title="NewProj" Height="400" Width="800"
+        Title="New Project" Height="400" Width="800"
         Icon="C:\Users\LCOM\Desktop\saphoIDE\Sapho_atual\Sapho_IDE\1498583471_kcmprocessor.ico"
-        Background="#444444">
-    <Grid>
-        
+        Background="#242424">
+    <Window.Resources>
+        <!-- Estilo para o botão "Browse" -->
+        <Style x:Key="BrowseButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#0078D7"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#005A9E"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Título "Project Settings" -->
+        <TextBlock Text="Project Settings:" FontSize="35" Foreground="White" FontWeight="Bold" VerticalAlignment="Center"/>
+
+        <!-- Label e TextBox para o nome do projeto -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <TextBlock Text="Project Name:" FontSize="20" Margin="0,50" VerticalAlignment="Center" Foreground="White" Width="160"/>
+            <TextBox  x:Name="ProjectNameTextBox" Margin="30,0" VerticalAlignment="Center" VerticalContentAlignment="Center" FontSize="15" Height="30" Width="400"/>
+        </StackPanel>
+
+        <!-- Label e TextBox para o diretório do projeto -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <TextBlock Text="Project Directory:" FontSize="20" Margin="0,0" VerticalAlignment="Center" Foreground="White" Width="160"/>
+            <TextBox x:Name="ProjectDirectoryTextBox" Margin="30,0,30,0" VerticalAlignment="Center" VerticalContentAlignment="Center" FontSize="15" Height="30" Width="400"/>
+            <Button Content="Browse" VerticalAlignment="Center" Click="Browse_Click" Style="{StaticResource BrowseButtonStyle}"/>
+        </StackPanel>
+
+        <Button x:Name="CreateProjectButton" Grid.Row="4" Content="Create Project" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,50" Click="CreateProject_Click" Style="{StaticResource BrowseButtonStyle}"/>
+
     </Grid>
 </Window>

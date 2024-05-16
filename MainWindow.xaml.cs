@@ -1,46 +1,96 @@
 ﻿using Microsoft.Win32;
-using System.Text;
+using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Xml;
-using System.IO;
 using ICSharpCode.AvalonEdit.Highlighting;
 using ICSharpCode.AvalonEdit.Highlighting.Xshd;
 using System.Reflection;
-
-
+using ICSharpCode.AvalonEdit;
 
 
 namespace Sapho_IDE_New
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
 
-            using (Stream s = File.OpenRead("CPP-Mode.xshd"))
+            // Carrega a sintaxe de destaque do arquivo XSHD
+            using (Stream s = File.OpenRead("CSharp.xshd"))
             {
                 if (s != null)
                 {
                     using (XmlTextReader reader = new XmlTextReader(s))
                     {
                         CodeEditor.SyntaxHighlighting = HighlightingLoader.Load(reader, HighlightingManager.Instance);
+                        CodeEditor2.SyntaxHighlighting = CodeEditor.SyntaxHighlighting; // Aplica a mesma sintaxe ao segundo TextEditor
                     }
                 }
             }
 
+            // Associa o evento KeyDown aos TextEditor's
+            CodeEditor.KeyDown += CodeEditor_KeyDown;
+            CodeEditor2.KeyDown += CodeEditor_KeyDown;
         }
+
+        private void CodeEditor_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab)
+            {
+                // Obtém o texto atual antes do cursor
+                var textBeforeCursor = ((ICSharpCode.AvalonEdit.TextEditor)sender).Document.GetText(
+                    ((ICSharpCode.AvalonEdit.TextEditor)sender).Document.GetLineByOffset(
+                        ((ICSharpCode.AvalonEdit.TextEditor)sender).CaretOffset).Offset,
+                    ((ICSharpCode.AvalonEdit.TextEditor)sender).CaretOffset -
+                    ((ICSharpCode.AvalonEdit.TextEditor)sender).Document.GetLineByOffset(
+                        ((ICSharpCode.AvalonEdit.TextEditor)sender).CaretOffset).Offset);
+
+                // Conta o número de espaços antes do cursor
+                int spacesBeforeCursor = textBeforeCursor.Length - textBeforeCursor.TrimStart().Length;
+
+                // Obtém a quantidade de espaços necessária para a próxima tabulação
+                int spacesToAdd = 4 - (spacesBeforeCursor % 4);
+
+                // Insere os espaços necessários
+                ((ICSharpCode.AvalonEdit.TextEditor)sender).Document.Insert(
+                    ((ICSharpCode.AvalonEdit.TextEditor)sender).CaretOffset, new string(' ', spacesToAdd));
+
+                // Move o cursor para a posição correta
+                ((ICSharpCode.AvalonEdit.TextEditor)sender).CaretOffset += spacesToAdd;
+
+                // Indica que o evento foi tratado
+                e.Handled = true;
+            }
+
+
+            var textEditor = (TextEditor)sender;
+            var caretOffset = textEditor.CaretOffset;
+            var textBeforeCaret = textEditor.Text.Substring(0, caretOffset);
+
+            // Verifica se o caractere digitado é um dos caracteres de autocompletar
+            switch (e.Key)
+            {
+                case Key.OemOpenBrackets: // '['
+                    textEditor.Document.Insert(caretOffset, "[]");
+                    textEditor.CaretOffset = caretOffset + 1;
+                    e.Handled = true;
+                    break;
+                case Key.OemCloseBrackets: // ']'
+                                           // Implemente lógica semelhante para outros caracteres, como '(' ou '{'
+                    textEditor.Document.Insert(caretOffset, "[]");
+                    textEditor.CaretOffset = caretOffset + 1;
+                    e.Handled = true;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+
 
         private void OpenFileMenu(object sender, RoutedEventArgs e)
         {
@@ -73,6 +123,7 @@ namespace Sapho_IDE_New
             NewProj newProjectWindow = new NewProj();
             newProjectWindow.ShowDialog();
         }
+
 
 
     }

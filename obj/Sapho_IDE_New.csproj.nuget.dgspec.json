@@ -53,6 +53,10 @@
               "target": "Package",
               "version": "[1.0.2, )"
             },
+            "FCTB": {
+              "target": "Package",
+              "version": "[2.16.24, )"
+            },
             "MahApps.Metro": {
               "target": "Package",
               "version": "[2.4.10, )"

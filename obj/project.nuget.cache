@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "9hXm438Myt0s5DEnNqvMpSVLvnDlIQwQqws0Py62QD35QUM+JsAJ/9jHAeCDfa7/JqQU6d5dHEKO0mhZevEEHw==",
+  "dgSpecHash": "jK62RsTTVM3XpX2WpxaUfn066ywSfaJjYvEVW9EPjz0GOREgDqOvJ4wSHdIXzPttvXpXdyF73gL2JQlgPR4VUQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\LCOM\\Desktop\\Github\\saphoIDE\\Sapho_IDE_New.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\LCOM\\.nuget\\packages\\avalonedit\\6.3.0.90\\avalonedit.6.3.0.90.nupkg.sha512",
     "C:\\Users\\LCOM\\.nuget\\packages\\bottimeicsharpcode.avalonedit\\1.0.2\\bottimeicsharpcode.avalonedit.1.0.2.nupkg.sha512",
     "C:\\Users\\LCOM\\.nuget\\packages\\controlzex\\4.4.0\\controlzex.4.4.0.nupkg.sha512",
+    "C:\\Users\\LCOM\\.nuget\\packages\\fctb\\2.16.24\\fctb.2.16.24.nupkg.sha512",
     "C:\\Users\\LCOM\\.nuget\\packages\\mahapps.metro\\2.4.10\\mahapps.metro.2.4.10.nupkg.sha512",
     "C:\\Users\\LCOM\\.nuget\\packages\\microsoft.netcore.platforms\\7.0.0\\microsoft.netcore.platforms.7.0.0.nupkg.sha512",
     "C:\\Users\\LCOM\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
@@ -69,6 +70,16 @@
       "warningLevel": 1,
       "message": "O pacote 'BotTimeICSharpCode.AvalonEdit 1.0.2' foi restaurado usando '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' em vez da estrutura de destino do projeto 'net8.0-windows7.0'. Esse pacote pode não ser totalmente compatível com o seu projeto.",
       "libraryId": "BotTimeICSharpCode.AvalonEdit",
+      "targetGraphs": [
+        "net8.0-windows7.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "O pacote 'FCTB 2.16.24' foi restaurado usando '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' em vez da estrutura de destino do projeto 'net8.0-windows7.0'. Esse pacote pode não ser totalmente compatível com o seu projeto.",
+      "libraryId": "FCTB",
       "targetGraphs": [
         "net8.0-windows7.0"
       ]

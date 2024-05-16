@@ -54,7 +54,7 @@ namespace Sapho_IDE_New {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Sapho_IDE_New;component/custommessage.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Sapho_IDE_New;V1.0.0.0;component/custommessage.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\CustomMessage.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

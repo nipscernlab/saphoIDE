@@ -77,7 +77,7 @@ namespace Sapho_IDE_New {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Sapho_IDE_New;V1.0.0.0;component/newproj.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Sapho_IDE_New;component/newproj.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\NewProj.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

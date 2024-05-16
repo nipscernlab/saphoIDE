@@ -37,6 +37,8 @@ namespace Sapho_IDE_New
             CodeEditor2.KeyDown += CodeEditor_KeyDown;
         }
 
+
+
         private void CodeEditor_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Tab)
@@ -66,31 +68,36 @@ namespace Sapho_IDE_New
                 e.Handled = true;
             }
 
-
             var textEditor = (TextEditor)sender;
             var caretOffset = textEditor.CaretOffset;
-            var textBeforeCaret = textEditor.Text.Substring(0, caretOffset);
 
-            // Verifica se o caractere digitado é um dos caracteres de autocompletar
             switch (e.Key)
             {
-                case Key.OemOpenBrackets: // '['
-                    textEditor.Document.Insert(caretOffset, "[]");
+                case Key.OemOpenBrackets: // '{'
+                    textEditor.Document.Insert(caretOffset, "{}");
                     textEditor.CaretOffset = caretOffset + 1;
                     e.Handled = true;
                     break;
-                case Key.OemCloseBrackets: // ']'
-                                           // Implemente lógica semelhante para outros caracteres, como '(' ou '{'
-                    textEditor.Document.Insert(caretOffset, "[]");
+
+                case Key.OemQuotes: // '"'
+                    textEditor.Document.Insert(caretOffset, "\"\"");
                     textEditor.CaretOffset = caretOffset + 1;
                     e.Handled = true;
                     break;
+
+                case Key.OemComma: // '''
+                    textEditor.Document.Insert(caretOffset, "''");
+                    textEditor.CaretOffset = caretOffset + 1;
+                    e.Handled = true;
+                    break;
+
+                // Adicione mais casos para outros caracteres, se necessário
+
                 default:
                     break;
             }
+
         }
-
-
 
         private void OpenFileMenu(object sender, RoutedEventArgs e)
         {
@@ -115,8 +122,23 @@ namespace Sapho_IDE_New
                 // Lógica para lidar com o arquivo selecionado
                 string selectedFilePath = openFileDialog.FileName;
                 // Implemente aqui o código para abrir o projeto
+
             }
         }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((Keyboard.Modifiers & ModifierKeys.Alt) == ModifierKeys.Alt && e.Key == Key.F4)
+            {
+                Close(); // Fecha a janela
+            }
+        }
+
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            Close(); // Fecha a janela principal
+        }
+
 
         private void OpenNewProject_Click(object sender, RoutedEventArgs e)
         {
@@ -127,4 +149,6 @@ namespace Sapho_IDE_New
 
 
     }
+
+
 }

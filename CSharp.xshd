@@ -138,11 +138,18 @@
 			<Word>sizeof</Word>
 			<Word>typeof</Word>
 			<Word>stackalloc</Word>
+			<Word>Anonmixs</Word>
 		</Keywords>
 		
 		<Keywords color="TrueFalse">
 			<Word>true</Word>
 			<Word>false</Word>
+			<Word>++</Word>
+			<Word>--</Word>
+			<Word>C+-</Word>
+			<Word>c+-</Word>
+			<Word>Chrysthofer</Word>
+			
 		</Keywords>
 		
 		<Keywords color="Keywords">
@@ -285,6 +292,7 @@
 		<Keywords color="SemanticKeywords">
 			<Word>nameof</Word>
 		</Keywords>
+
 
 		<!-- Mark previous rule-->
 		<Rule color="MethodCall">

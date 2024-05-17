@@ -54,7 +54,7 @@ namespace Theme.WPF.ThemesOLD {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Sapho_IDE_New;component/themesold/lighttheme.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Sapho_IDE_New;V1.0.0.0;component/themesold/lighttheme.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\ThemesOLD\LightTheme.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

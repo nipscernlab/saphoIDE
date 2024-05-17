@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
+        xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
         xmlns:local="clr-namespace:Sapho_IDE_New"
         KeyDown="Window_KeyDown"
         mc:Ignorable="d"
@@ -13,76 +14,114 @@
     <Window.Resources>
         <!-- Estilo personalizado para o menu suspenso -->
         <Style x:Key="ContextMenuStyle" TargetType="{x:Type ContextMenu}">
-            <Setter Property="Background" Value="#333333"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Placement" Value="Bottom"/>
-            <Setter Property="VerticalOffset" Value="3"/>
-            <Setter Property="FontFamily" Value="Segoe UI"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="MinWidth" Value="150"/>
-            <Setter Property="ItemContainerStyle">
-                <Setter.Value>
-                    <Style TargetType="MenuItem">
-                        <Setter Property="Padding" Value="10"/>
-                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                    </Style>
-                </Setter.Value>
-            </Setter>
-            <!-- Definir o estilo personalizado para o ScrollViewer -->
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ContextMenu}">
-                        <Border BorderThickness="{TemplateBinding BorderThickness}"
+    <Setter Property="Background" Value="#333333"/>
+    <Setter Property="Foreground" Value="White"/>
+    <Setter Property="BorderThickness" Value="1"/>
+    <Setter Property="BorderBrush" Value="#555555"/>
+    <Setter Property="Placement" Value="Bottom"/>
+    <Setter Property="VerticalOffset" Value="3"/>
+    <Setter Property="FontFamily" Value="Segoe UI"/>
+    <Setter Property="FontSize" Value="14"/>
+    <Setter Property="MinWidth" Value="150"/>
+    <Setter Property="ItemContainerStyle">
+        <Setter.Value>
+            <Style TargetType="MenuItem">
+                <Setter Property="Padding" Value="10"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type MenuItem}">
+                            <Border x:Name="Border" Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="5">
+                                <Grid>
+                                    <ContentPresenter Content="{TemplateBinding Header}"
+                                                      ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                                      ContentStringFormat="{TemplateBinding HeaderStringFormat}"
+                                                      HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"
+                                                      Margin="{TemplateBinding Padding}"/>
+                                    <Image Source="{Binding Path=(MenuItem.Icon), RelativeSource={RelativeSource TemplatedParent}}"
+                                           VerticalAlignment="Center"
+                                           Margin="5"
+                                           Width="24"
+                                           Height="24"/>
+                                </Grid>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="Border" Property="Background" Value="#555555"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </Setter.Value>
+    </Setter>
+    <!-- Definir o estilo personalizado para o ScrollViewer -->
+    <Setter Property="Template">
+        <Setter.Value>
+            <ControlTemplate TargetType="{x:Type ContextMenu}">
+                <Border BorderThickness="{TemplateBinding BorderThickness}"
                         BorderBrush="{TemplateBinding BorderBrush}"
-                        Background="{TemplateBinding Background}">
-                            <ScrollViewer CanContentScroll="True">
-                                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-                            </ScrollViewer>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="10">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="5" Opacity="0.5" ShadowDepth="5"/>
+                    </Border.Effect>
+                    <ScrollViewer CanContentScroll="True" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled">
+                        <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                    </ScrollViewer>
+                </Border>
+            </ControlTemplate>
+        </Setter.Value>
+    </Setter>
+</Style>
 
         <ContextMenu x:Key="FileMenu" Style="{StaticResource ContextMenuStyle}" StaysOpen="False">
-            <MenuItem Header="New Project" Click="OpenNewProject_Click" >
-        <MenuItem.Icon>
-            <Image Source="Icons/icon-sapho.ico"/>
-        </MenuItem.Icon>
-    </MenuItem>
+            <MenuItem Header="New Project" Click="OpenNewProject_Click">
+                <MenuItem.Icon>
+                    <Image Source="Icons/icon-sapho.ico" Width="24" Height="24"/>
+                </MenuItem.Icon>
+            </MenuItem>
 
-    <MenuItem Header="Open Project" Click="OpenFileMenu_Click">
-        <MenuItem.Icon>
-            <Image Source="Icons/icon-sapho.ico"/>
-        </MenuItem.Icon>
-    </MenuItem>
+            <MenuItem Header="Open Project" Click="OpenFileMenu_Click">
+                <MenuItem.Icon>
+                    <Image Source="Icons/icon-sapho.ico" Width="24" Height="24"/>
+                </MenuItem.Icon>
+            </MenuItem>
 
-    <MenuItem Header="Open Folder" Click="OpenFolderMenu_Click" >
-        <MenuItem.Icon>
-            <Image Source="Icons/icon-sapho.ico"/>
-        </MenuItem.Icon>
-    </MenuItem>
+            <MenuItem Header="Open Folder" Click="OpenFolderMenu_Click">
+                <MenuItem.Icon>
+                    <Image Source="Icons/icon-sapho.ico" Width="24" Height="24"/>
+                </MenuItem.Icon>
+            </MenuItem>
 
-    <MenuItem Header="Save All" >
-        <MenuItem.Icon>
-            <Image Source="Icons/icon-sapho.ico"/>
-        </MenuItem.Icon>
-    </MenuItem>
+            <MenuItem Header="Save All">
+                <MenuItem.Icon>
+                    <Image Source="Icons/icon-sapho.ico" Width="24" Height="24"/>
+                </MenuItem.Icon>
+            </MenuItem>
 
-    <MenuItem Header="Save Backup" >
-        <MenuItem.Icon>
-            <Image Source="Icons/icon-sapho.ico"/>
-        </MenuItem.Icon>
-    </MenuItem>
+            <MenuItem Header="Save Backup">
+                <MenuItem.Icon>
+                    <Image Source="Icons/icon-sapho.ico" Width="24" Height="24"/>
+                </MenuItem.Icon>
+            </MenuItem>
 
-    <MenuItem Header="Exit Alt+F4" Click="Exit_Click" >
-        <MenuItem.Icon>
-            <Image Source="Icons/icon-sapho.ico"/>
-        </MenuItem.Icon>
-    </MenuItem>
-</ContextMenu>
+            <MenuItem Header="Exit Alt+F4" Click="Exit_Click">
+                <MenuItem.Icon>
+                    <Image Source="Icons/icon-sapho.ico" Width="24" Height="24"/>
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+
+
 
         <!-- Menu suspenso para o botão "Help" -->
         <ContextMenu x:Key="HelpMenu" Style="{StaticResource ContextMenuStyle}" StaysOpen="False">
@@ -133,21 +172,30 @@
 
         <!-- Retângulo na vertical no lado esquerdo -->
         <Border Grid.Column="0" Background="Gray" Margin="10,68,10,10" CornerRadius="10">
-            <TreeView x:Name="FileTreeView" FontSize="15" FontFamily="Consolas" Margin="10" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
-                <TreeView.Style>
-                    <Style TargetType="{x:Type TreeView}">
-                        <Setter Property="BorderBrush" Value="Gray"/>
-                        <Setter Property="BorderThickness" Value="1"/>
-                        <Setter Property="Background" Value="Gray"/>
-                    </Style>
-                </TreeView.Style>
-                <TreeView.ItemContainerStyle>
-                    <Style TargetType="{x:Type TreeViewItem}">
-                        <Setter Property="Foreground" Value="LightGray"/>
-                    </Style>
-                </TreeView.ItemContainerStyle>
-                <!-- Aqui vamos adicionar os itens da árvore -->
-            </TreeView>
+            <TreeView x:Name="FileTreeView" FontSize="15" FontFamily="Consolas" Margin="10" 
+           ScrollViewer.VerticalScrollBarVisibility="Hidden" 
+           ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+           Foreground="#CCCCCC">
+    <TreeView.Style>
+        <Style TargetType="{x:Type TreeView}">
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="Gray"/>
+        </Style>
+    </TreeView.Style>
+    <TreeView.ItemContainerStyle>
+        <Style TargetType="{x:Type TreeViewItem}">
+            <Setter Property="Foreground" Value="#CCCCCC"/> <!-- Cinza claro -->
+        </Style>
+    </TreeView.ItemContainerStyle>
+    <!-- Aqui vamos adicionar os itens da árvore -->
+    <TreeView.ItemTemplate>
+        <HierarchicalDataTemplate ItemsSource="{Binding Items}">
+            <TextBlock Text="{Binding Name}" Foreground="#CCCCCC"/> <!-- Cinza claro -->
+        </HierarchicalDataTemplate>
+    </TreeView.ItemTemplate>
+</TreeView>
+
         </Border>
 
         <!-- Painel redimensionável -->

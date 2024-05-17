@@ -54,7 +54,7 @@ namespace Theme.WPF.ThemesOLD {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Sapho_IDE_New;component/themesold/colourfuldarktheme.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Sapho_IDE_New;V1.0.0.0;component/themesold/colourfuldarktheme.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\ThemesOLD\ColourfulDarkTheme.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

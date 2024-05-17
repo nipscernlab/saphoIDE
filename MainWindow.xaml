@@ -26,62 +26,58 @@
                     <Style TargetType="MenuItem">
                         <Setter Property="Padding" Value="10"/>
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        <Setter Property="BorderThickness" Value="5"/>
                     </Style>
                 </Setter.Value>
             </Setter>
-            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden"/>
-            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden"/>
-
             <!-- Definir o estilo personalizado para o ScrollViewer -->
-    <Setter Property="Template">
-        <Setter.Value>
-            <ControlTemplate TargetType="{x:Type ContextMenu}">
-                <Border BorderThickness="{TemplateBinding BorderThickness}"
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ContextMenu}">
+                        <Border BorderThickness="{TemplateBinding BorderThickness}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         Background="{TemplateBinding Background}">
-                    <ScrollViewer CanContentScroll="True">
-                        <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-                    </ScrollViewer>
-                </Border>
-            </ControlTemplate>
-        </Setter.Value>
-    </Setter>
-            
+                            <ScrollViewer CanContentScroll="True">
+                                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            </ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
 
+
         <ContextMenu x:Key="FileMenu" Style="{StaticResource ContextMenuStyle}" StaysOpen="False">
-    <MenuItem Header="New Project" Click="OpenNewProject_Click" Style="{StaticResource MenuItemStyle}">
+            <MenuItem Header="New Project" Click="OpenNewProject_Click" >
         <MenuItem.Icon>
             <Image Source="Icons/icon-sapho.ico"/>
         </MenuItem.Icon>
     </MenuItem>
 
-    <MenuItem Header="Open Project" Click="OpenFileMenu_Click" Style="{StaticResource MenuItemStyle}">
+    <MenuItem Header="Open Project" Click="OpenFileMenu_Click">
         <MenuItem.Icon>
             <Image Source="Icons/icon-sapho.ico"/>
         </MenuItem.Icon>
     </MenuItem>
 
-    <MenuItem Header="Open Folder" Click="OpenFolderMenu_Click" Style="{StaticResource MenuItemStyle}">
+    <MenuItem Header="Open Folder" Click="OpenFolderMenu_Click" >
         <MenuItem.Icon>
             <Image Source="Icons/icon-sapho.ico"/>
         </MenuItem.Icon>
     </MenuItem>
 
-    <MenuItem Header="Save All" Style="{StaticResource MenuItemStyle}">
+    <MenuItem Header="Save All" >
         <MenuItem.Icon>
             <Image Source="Icons/icon-sapho.ico"/>
         </MenuItem.Icon>
     </MenuItem>
 
-    <MenuItem Header="Save Backup" Style="{StaticResource MenuItemStyle}">
+    <MenuItem Header="Save Backup" >
         <MenuItem.Icon>
             <Image Source="Icons/icon-sapho.ico"/>
         </MenuItem.Icon>
     </MenuItem>
 
-    <MenuItem Header="Exit Alt+F4" Click="Exit_Click" Style="{StaticResource MenuItemStyle}">
+    <MenuItem Header="Exit Alt+F4" Click="Exit_Click" >
         <MenuItem.Icon>
             <Image Source="Icons/icon-sapho.ico"/>
         </MenuItem.Icon>

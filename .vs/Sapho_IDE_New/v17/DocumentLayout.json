@@ -60,7 +60,7 @@
               "RelativeDocumentMoniker": "MainWindow.xaml.cs",
               "ToolTip": "C:\\Users\\LCOM\\Desktop\\Github\\saphoIDE\\MainWindow.xaml.cs",
               "RelativeToolTip": "MainWindow.xaml.cs",
-              "ViewState": "AQIAAFcBAAAAAAAAAAAqwGkBAAAMAAAA",
+              "ViewState": "AQIAAEQBAAAAAAAAAAAuwGkBAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-17T01:51:33.951Z",
               "EditorCaption": ""
@@ -87,8 +87,7 @@
               "RelativeToolTip": "App.config",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
-              "WhenOpened": "2024-05-17T03:01:08.513Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-17T03:01:08.513Z"
             },
             {
               "$type": "Document",
@@ -100,8 +99,7 @@
               "RelativeToolTip": "README.md",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
-              "WhenOpened": "2024-05-17T12:20:59.421Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-17T12:20:59.421Z"
             }
           ]
         }

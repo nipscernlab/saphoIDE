@@ -1,8 +1,76 @@
-C:\Users\chrys\Desktop\Github\appenzell\Source\asm2mif.c
-C:\Users\chrys\Desktop\Github\appenzell\Source\mnemonicos.c
-C:\Users\chrys\Desktop\Github\appenzell\Source\eval.c
-C:\Users\chrys\Desktop\Github\appenzell\Source\variaveis.c
-C:\Users\chrys\Desktop\Github\appenzell\Source\asm2mif.c
-C:\Users\chrys\Desktop\Github\appenzell\Source\mnemonicos.c
-C:\Users\chrys\Desktop\Github\appenzell\Source\t2t.c
-C:\Users\chrys\Desktop\Github\appenzell\Source\teste.asm
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\labels.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\y.tab.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\t2t.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\variaveis.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\lex.yy.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\teste.asm
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\variaveis.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\t2t.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\variaveis.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\teste.asm
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\teste.asm
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\teste.asm
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\labels.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\y.tab.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\teste.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\t2t.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\t2t.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\t2t.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\lex.yy.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\lex.yy.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\y.tab.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\y.tab.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\t2t.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\teste.asm
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\y.tab.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\labels.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\lex.yy.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\t2t.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\variaveis.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\teste.asm
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\teste.asm
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\teste.asm
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\teste.asm
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\teste.asm
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\labels.c
+C:\Users\LCOM\Desktop\Atividade1_SAPHO\Software\proc_S\proc.asm
+C:\Users\LCOM\Desktop\Atividade1_SAPHO\Software\proc_S\proc.asm
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\labels.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\y.tab.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\t2t.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\variaveis.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\lex.yy.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\teste.asm
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\variaveis.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\t2t.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\variaveis.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\teste.asm
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\teste.asm
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\teste.asm
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\labels.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\y.tab.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\teste.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\t2t.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\t2t.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\t2t.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\lex.yy.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\lex.yy.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\y.tab.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\y.tab.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\t2t.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\teste.asm
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\y.tab.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\labels.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\lex.yy.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\t2t.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\variaveis.c
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\teste.asm
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\teste.asm
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\teste.asm
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\teste.asm
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\teste.asm
+C:\Users\LCOM\Desktop\Github\sapho\C Compiler\Source\labels.c
+C:\Users\LCOM\Desktop\Atividade1_SAPHO\Software\proc_S\proc.asm
+C:\Users\LCOM\Desktop\Atividade1_SAPHO\Software\proc_S\proc.asm
+C:\Users\LCOM\Desktop\Atividade1_SAPHO\Software\proc_S\proc.c
+C:\Users\LCOM\Desktop\Atividade1_SAPHO\Software\proc_S\proc.asm

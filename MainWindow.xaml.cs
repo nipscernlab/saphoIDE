@@ -7,6 +7,19 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using ICSharpCode.AvalonEdit;
+using System.Windows.Forms; // Added this line at the top of the file
+
+using WpfButton = System.Windows.Controls.Button;
+using FormsButton = System.Windows.Forms.Button;
+using WpfMessageBox = System.Windows.MessageBox;
+using FormsMessageBox = System.Windows.Forms.MessageBox;
+using WpfOpenFileDialog = Microsoft.Win32.OpenFileDialog;
+using FormsOpenFileDialog = System.Windows.Forms.OpenFileDialog;
+using WpfOrientation = System.Windows.Controls.Orientation;
+using FormsOrientation = System.Windows.Forms.Orientation;
+using WpfKeyEventArgs = System.Windows.Input.KeyEventArgs;
+using FormsKeyEventArgs = System.Windows.Forms.KeyEventArgs;
+using System.Windows.Documents;
 
 namespace Sapho_IDE_New
 {
@@ -18,8 +31,110 @@ namespace Sapho_IDE_New
         public MainWindow()
         {
             InitializeComponent();
+            List<string> initialFilesAndFolders = new List<string>(); // Crie uma lista vazia
+            LoadFileTree(initialFilesAndFolders); // Passe a lista vazia para o método LoadFileTree
             LoadOpenedFiles();
         }
+
+
+        private void LoadFileTree(List<string> filesAndFolders)
+        {
+            FileTreeView.Items.Clear();
+            foreach (var item in filesAndFolders)
+            {
+                if (Directory.Exists(item))
+                {
+                    DirectoryInfo directoryInfo = new DirectoryInfo(item);
+                    AddDirectoryNodes(directoryInfo, null);
+                }
+                else if (File.Exists(item))
+                {
+                    AddFileNode(item, null);
+                }
+            }
+        }
+
+        private void AddFileNode(string filePath, TreeViewItem parentNode)
+        {
+            TreeViewItem fileNode = new TreeViewItem();
+            fileNode.Header = Path.GetFileName(filePath);
+            fileNode.Tag = filePath; // Armazena o caminho do arquivo como tag do nó
+
+            fileNode.MouseDoubleClick += (sender, e) =>
+            {
+                OpenFile(filePath);
+            };
+
+            if (parentNode == null)
+            {
+                // Adiciona ao nível superior do TreeView
+                FileTreeView.Items.Add(fileNode);
+            }
+            else
+            {
+                // Adiciona como um nó filho do nó pai
+                parentNode.Items.Add(fileNode);
+            }
+        }
+
+
+        private void AddDirectoryNodes(DirectoryInfo directory, TreeViewItem parentNode)
+        {
+            TreeViewItem directoryNode = new TreeViewItem
+            {
+                Header = directory.Name,
+                Tag = directory.FullName // Armazena o caminho completo do diretório
+            };
+
+            // Adiciona um placeholder para expansão
+            directoryNode.Items.Add("Loading...");
+
+            // Adiciona um manipulador de eventos para carregar conteúdo quando expandido
+            directoryNode.Expanded += DirectoryNode_Expanded;
+
+            if (parentNode == null)
+            {
+                FileTreeView.Items.Add(directoryNode);
+            }
+            else
+            {
+                parentNode.Items.Add(directoryNode);
+            }
+        }
+
+        private void DirectoryNode_Expanded(object sender, RoutedEventArgs e)
+        {
+            TreeViewItem item = sender as TreeViewItem;
+            if (item.Items.Count == 1 && item.Items[0] is string) // Verifica se já foi carregado
+            {
+                item.Items.Clear(); // Limpa o placeholder
+
+                DirectoryInfo directory = new DirectoryInfo((string)item.Tag);
+                try
+                {
+                    foreach (var subDirectory in directory.GetDirectories())
+                    {
+                        AddDirectoryNodes(subDirectory, item);
+                    }
+                    foreach (var file in directory.GetFiles())
+                    {
+                        AddFileNode(file.FullName, item);
+                    }
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    // Tratamento da exceção
+                    WpfMessageBox.Show($"Acesso negado: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                    // Volte para a tela principal (MainWindow)
+                    MainWindow mainWindow = new MainWindow();
+                    mainWindow.Show();
+                    Close(); // Feche a janela atual, se necessário
+                }
+            }
+        }
+
+
+
 
         private void LoadOpenedFiles()
         {
@@ -37,7 +152,7 @@ namespace Sapho_IDE_New
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro ao carregar arquivos abertos: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                WpfMessageBox.Show($"Erro ao carregar arquivos abertos: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -50,38 +165,73 @@ namespace Sapho_IDE_New
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro ao salvar arquivos abertos: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                WpfMessageBox.Show($"Erro ao salvar arquivos abertos: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void OpenFileMenu_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog
+            // Cria uma caixa de diálogo para seleção de arquivos
+            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog
             {
+                Multiselect = true, // Permite a seleção de múltiplos arquivos
                 Filter = "Arquivos C e ASM (*.c;*.asm)|*.c;*.asm|Todos os Arquivos (*.*)|*.*"
             };
+
             if (openFileDialog.ShowDialog() == true)
             {
-                string selectedFilePath = openFileDialog.FileName;
+                List <string> selectedFiles = new List < string> (openFileDialog.FileNames);
 
-                if (File.Exists(selectedFilePath))
+                // Passa os arquivos selecionados para o método LoadFileTree
+                LoadFileTree(selectedFiles);
+            }
+        }
+
+
+
+        private void OpenFolderMenu_Click(object sender, RoutedEventArgs e)
+        {
+            // Cria uma caixa de diálogo para seleção de pasta
+            using (var folderDialog = new FolderBrowserDialog())
+            {
+                if (folderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    OpenFile(selectedFilePath);
-                    openedFilePaths.Add(selectedFilePath);
-                    SaveOpenedFiles();
-                }
-                else
-                {
-                    MessageBox.Show($"O arquivo '{selectedFilePath}' não foi encontrado.", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                    string selectedPath = folderDialog.SelectedPath;
+
+                    // Adiciona a pasta selecionada à lista de arquivos e pastas a serem carregados na árvore
+                    List  < string > filesAndFolders = new List < string>
+                    { selectedPath };
+
+                    // Passa os arquivos e pastas selecionados para o método LoadFileTree
+                    LoadFileTree(filesAndFolders);
                 }
             }
         }
+
+
+
+
+        private void OpenProject_Click(object sender, RoutedEventArgs e)
+        {
+            using (var folderDialog = new FolderBrowserDialog())
+            {
+                if (folderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    string selectedPath = folderDialog.SelectedPath;
+                    List<string> filesAndFolders = new List<string> { selectedPath };
+                    LoadFileTree(filesAndFolders);
+                }
+            }
+        }
+
+
+
 
         private void OpenFile(string filePath)
         {
             TabItem newTab = new TabItem();
             DockPanel headerPanel = new DockPanel();
-            StackPanel innerPanel = new StackPanel { Orientation = Orientation.Horizontal };
+            StackPanel innerPanel = new StackPanel { Orientation = WpfOrientation.Horizontal };
 
             TextBlock fileNameTextBlock = new TextBlock
             {
@@ -103,7 +253,7 @@ namespace Sapho_IDE_New
                 Visibility = Visibility.Hidden
             };
 
-            Button closeButton = new Button
+            WpfButton closeButton = new WpfButton
             {
                 Content = "x",
                 Width = 24,
@@ -126,7 +276,7 @@ namespace Sapho_IDE_New
                 }
                 else
                 {
-                    MessageBox.Show("Salve o arquivo antes de fechá-lo.");
+                    WpfMessageBox.Show("Salve o arquivo antes de fechá-lo.");
                 }
             };
 
@@ -195,7 +345,7 @@ namespace Sapho_IDE_New
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ocorreu um erro ao salvar o arquivo:\n\n{ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                WpfMessageBox.Show($"Ocorreu um erro ao salvar o arquivo:\n\n{ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -232,7 +382,7 @@ namespace Sapho_IDE_New
             newProjectWindow.ShowDialog();
         }
 
-        private void Window_KeyDown(object sender, KeyEventArgs e)
+        private void Window_KeyDown(object sender, WpfKeyEventArgs e)
         {
             if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control && e.Key == Key.W)
             {
@@ -247,3 +397,4 @@ namespace Sapho_IDE_New
         }
     }
 }
+

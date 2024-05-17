@@ -8,7 +8,7 @@
         KeyDown="Window_KeyDown"
         mc:Ignorable="d"
         Title="SAPHO IDE" MinWidth="800" MinHeight="600"
-        Icon="/Icons/1498583471_kcmprocessor.ico"
+        Icon="pack://application:,,,/Icons/1498583471_kcmprocessor.ico"
         Background="#242424">
     <Window.Resources>
         <!-- Estilo personalizado para o menu suspenso -->
@@ -26,19 +26,67 @@
                     <Style TargetType="MenuItem">
                         <Setter Property="Padding" Value="10"/>
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="BorderThickness" Value="5"/>
                     </Style>
                 </Setter.Value>
             </Setter>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden"/>
+
+            <!-- Definir o estilo personalizado para o ScrollViewer -->
+    <Setter Property="Template">
+        <Setter.Value>
+            <ControlTemplate TargetType="{x:Type ContextMenu}">
+                <Border BorderThickness="{TemplateBinding BorderThickness}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        Background="{TemplateBinding Background}">
+                    <ScrollViewer CanContentScroll="True">
+                        <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                    </ScrollViewer>
+                </Border>
+            </ControlTemplate>
+        </Setter.Value>
+    </Setter>
+            
         </Style>
 
-        <!-- Menu suspenso para o botão "File" -->
         <ContextMenu x:Key="FileMenu" Style="{StaticResource ContextMenuStyle}" StaysOpen="False">
-            <MenuItem Header="New Project" Click="OpenNewProject_Click"/>
-            <MenuItem Header="Open Project" Click="OpenFileMenu_Click"/>
-            <MenuItem Header="Save All"/>
-            <MenuItem Header="Save Backup"/>
-            <MenuItem Header="Exit Alt+F4" Click="Exit_Click"/>
-        </ContextMenu>
+    <MenuItem Header="New Project" Click="OpenNewProject_Click" Style="{StaticResource MenuItemStyle}">
+        <MenuItem.Icon>
+            <Image Source="Icons/icon-sapho.ico"/>
+        </MenuItem.Icon>
+    </MenuItem>
+
+    <MenuItem Header="Open Project" Click="OpenFileMenu_Click" Style="{StaticResource MenuItemStyle}">
+        <MenuItem.Icon>
+            <Image Source="Icons/icon-sapho.ico"/>
+        </MenuItem.Icon>
+    </MenuItem>
+
+    <MenuItem Header="Open Folder" Click="OpenFolderMenu_Click" Style="{StaticResource MenuItemStyle}">
+        <MenuItem.Icon>
+            <Image Source="Icons/icon-sapho.ico"/>
+        </MenuItem.Icon>
+    </MenuItem>
+
+    <MenuItem Header="Save All" Style="{StaticResource MenuItemStyle}">
+        <MenuItem.Icon>
+            <Image Source="Icons/icon-sapho.ico"/>
+        </MenuItem.Icon>
+    </MenuItem>
+
+    <MenuItem Header="Save Backup" Style="{StaticResource MenuItemStyle}">
+        <MenuItem.Icon>
+            <Image Source="Icons/icon-sapho.ico"/>
+        </MenuItem.Icon>
+    </MenuItem>
+
+    <MenuItem Header="Exit Alt+F4" Click="Exit_Click" Style="{StaticResource MenuItemStyle}">
+        <MenuItem.Icon>
+            <Image Source="Icons/icon-sapho.ico"/>
+        </MenuItem.Icon>
+    </MenuItem>
+</ContextMenu>
 
         <!-- Menu suspenso para o botão "Help" -->
         <ContextMenu x:Key="HelpMenu" Style="{StaticResource ContextMenuStyle}" StaysOpen="False">
@@ -55,7 +103,16 @@
         </Grid.ColumnDefinitions>
 
         <!-- Botões no topo da janela -->
-        <Border Background="#333333" Height="48" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="10,0,10,0" CornerRadius="5">
+        <!-- Imagem -->
+        <!-- Dragablz.TabablzControl para as guias -->
+        <dragablz:TabablzControl x:Name="FileTabControl" Grid.Column="1" Margin="10,68,10,10"
+                                 BorderThickness="0">
+            <!-- As abas serão adicionadas dinamicamente no código-behind -->
+        </dragablz:TabablzControl>
+
+
+        <!-- Botões no topo da janela -->
+        <Border Background="#333333" Height="48" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="10,0,10,0" CornerRadius="5" Panel.ZIndex="2">
             <StackPanel Orientation="Horizontal">
                 <Button Content="File" FontSize="16" Margin="10" Height="24" Click="OpenFileMenu">
                     <Button.Style>
@@ -79,15 +136,29 @@
         </Border>
 
         <!-- Retângulo na vertical no lado esquerdo -->
-        <Border Grid.Column="0" Background="Gray" Margin="10,68,10,10" CornerRadius="10"/>
+        <Border Grid.Column="0" Background="Gray" Margin="10,68,10,10" CornerRadius="10">
+            <TreeView x:Name="FileTreeView" FontSize="15" FontFamily="Consolas" Margin="10" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                <TreeView.Style>
+                    <Style TargetType="{x:Type TreeView}">
+                        <Setter Property="BorderBrush" Value="Gray"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="Background" Value="Gray"/>
+                    </Style>
+                </TreeView.Style>
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="{x:Type TreeViewItem}">
+                        <Setter Property="Foreground" Value="LightGray"/>
+                    </Style>
+                </TreeView.ItemContainerStyle>
+                <!-- Aqui vamos adicionar os itens da árvore -->
+            </TreeView>
+        </Border>
 
         <!-- Painel redimensionável -->
         <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Left" ResizeDirection="Columns" Margin="0,68,0,10"/>
 
         <!-- Dragablz.TabablzControl para as guias -->
-        <dragablz:TabablzControl x:Name="FileTabControl" Grid.Column="1" Margin="10,68,10,10"
-                                 BorderThickness="0">
-            <!-- As abas serão adicionadas dinamicamente no código-behind -->
-        </dragablz:TabablzControl>
+
+        <!-- Imagem -->
     </Grid>
 </Window>

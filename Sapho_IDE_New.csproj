@@ -9,7 +9,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="CSharp.xshd" />
     <None Remove="Icons\1498583471_kcmprocessor.ico" />
+    <None Remove="Icons\icon-sapho.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="CSharp.xshd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\icon-sapho.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
@@ -25,7 +36,9 @@
     <PackageReference Include="FCTB" Version="2.16.24" />
     <PackageReference Include="MahApps.Metro" Version="2.4.10" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="PresentationFramework.Aero2" Version="1.0.1" />
     <PackageReference Include="WindowsAPICodePack" Version="7.0.4" />
+    <PackageReference Include="WindowsAPICodePack-Shell" Version="1.1.1" />
   </ItemGroup>
 
   <ItemGroup>

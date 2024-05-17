@@ -1,102 +1,210 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Xml;
-using ICSharpCode.AvalonEdit.Highlighting;
-using ICSharpCode.AvalonEdit.Highlighting.Xshd;
-using System.Reflection;
+using System.Windows.Media;
 using ICSharpCode.AvalonEdit;
-
 
 namespace Sapho_IDE_New
 {
     public partial class MainWindow : Window
     {
+        private List<string> openedFilePaths = new List<string>();
+        private Dictionary<TextEditor, Stack<string>> undoHistory = new Dictionary<TextEditor, Stack<string>>();
+
         public MainWindow()
         {
             InitializeComponent();
+            LoadOpenedFiles();
+        }
 
-            // Carrega a sintaxe de destaque do arquivo XSHD
-            using (Stream s = File.OpenRead("CSharp.xshd"))
+        private void LoadOpenedFiles()
+        {
+            try
             {
-                if (s != null)
+                string filePath = "opened_files.txt";
+                if (File.Exists(filePath))
                 {
-                    using (XmlTextReader reader = new XmlTextReader(s))
+                    openedFilePaths.AddRange(File.ReadAllLines(filePath));
+                    foreach (string file in openedFilePaths)
                     {
-                        CodeEditor.SyntaxHighlighting = HighlightingLoader.Load(reader, HighlightingManager.Instance);
-                        CodeEditor2.SyntaxHighlighting = CodeEditor.SyntaxHighlighting; // Aplica a mesma sintaxe ao segundo TextEditor
+                        OpenFile(file);
                     }
                 }
             }
-
-            // Associa o evento KeyDown aos TextEditor's
-            CodeEditor.KeyDown += CodeEditor_KeyDown;
-            CodeEditor2.KeyDown += CodeEditor_KeyDown;
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao carregar arquivos abertos: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
-
-
-        private void CodeEditor_KeyDown(object sender, KeyEventArgs e)
+        private void SaveOpenedFiles()
         {
-            if (e.Key == Key.Tab)
+            try
             {
-                // Obtém o texto atual antes do cursor
-                var textBeforeCursor = ((ICSharpCode.AvalonEdit.TextEditor)sender).Document.GetText(
-                    ((ICSharpCode.AvalonEdit.TextEditor)sender).Document.GetLineByOffset(
-                        ((ICSharpCode.AvalonEdit.TextEditor)sender).CaretOffset).Offset,
-                    ((ICSharpCode.AvalonEdit.TextEditor)sender).CaretOffset -
-                    ((ICSharpCode.AvalonEdit.TextEditor)sender).Document.GetLineByOffset(
-                        ((ICSharpCode.AvalonEdit.TextEditor)sender).CaretOffset).Offset);
-
-                // Conta o número de espaços antes do cursor
-                int spacesBeforeCursor = textBeforeCursor.Length - textBeforeCursor.TrimStart().Length;
-
-                // Obtém a quantidade de espaços necessária para a próxima tabulação
-                int spacesToAdd = 4 - (spacesBeforeCursor % 4);
-
-                // Insere os espaços necessários
-                ((ICSharpCode.AvalonEdit.TextEditor)sender).Document.Insert(
-                    ((ICSharpCode.AvalonEdit.TextEditor)sender).CaretOffset, new string(' ', spacesToAdd));
-
-                // Move o cursor para a posição correta
-                ((ICSharpCode.AvalonEdit.TextEditor)sender).CaretOffset += spacesToAdd;
-
-                // Indica que o evento foi tratado
-                e.Handled = true;
+                string filePath = "opened_files.txt";
+                File.WriteAllLines(filePath, openedFilePaths);
             }
-
-            var textEditor = (TextEditor)sender;
-            var caretOffset = textEditor.CaretOffset;
-
-            switch (e.Key)
+            catch (Exception ex)
             {
-                case Key.OemOpenBrackets: // '{'
-                    textEditor.Document.Insert(caretOffset, "{}");
-                    textEditor.CaretOffset = caretOffset + 1;
-                    e.Handled = true;
-                    break;
-
-                case Key.OemQuotes: // '"'
-                    textEditor.Document.Insert(caretOffset, "\"\"");
-                    textEditor.CaretOffset = caretOffset + 1;
-                    e.Handled = true;
-                    break;
-
-                case Key.OemComma: // '''
-                    textEditor.Document.Insert(caretOffset, "''");
-                    textEditor.CaretOffset = caretOffset + 1;
-                    e.Handled = true;
-                    break;
-
-                // Adicione mais casos para outros caracteres, se necessário
-
-                default:
-                    break;
+                MessageBox.Show($"Erro ao salvar arquivos abertos: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
 
+        private void OpenFileMenu_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "Arquivos C e ASM (*.c;*.asm)|*.c;*.asm|Todos os Arquivos (*.*)|*.*"
+            };
+            if (openFileDialog.ShowDialog() == true)
+            {
+                string selectedFilePath = openFileDialog.FileName;
+
+                if (File.Exists(selectedFilePath))
+                {
+                    OpenFile(selectedFilePath);
+                    openedFilePaths.Add(selectedFilePath);
+                    SaveOpenedFiles();
+                }
+                else
+                {
+                    MessageBox.Show($"O arquivo '{selectedFilePath}' não foi encontrado.", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        private void OpenFile(string filePath)
+        {
+            TabItem newTab = new TabItem();
+            DockPanel headerPanel = new DockPanel();
+            StackPanel innerPanel = new StackPanel { Orientation = Orientation.Horizontal };
+
+            TextBlock fileNameTextBlock = new TextBlock
+            {
+                Text = Path.GetFileName(filePath),
+                Margin = new Thickness(0, 0, 5, 0),
+                VerticalAlignment = VerticalAlignment.Center
+            };
+
+            innerPanel.Children.Add(fileNameTextBlock);
+
+            TextBlock modifiedIndicator = new TextBlock
+            {
+                Text = "•",
+                FontSize = 16,
+                FontWeight = FontWeights.Bold,
+                Foreground = Brushes.Red,
+                Margin = new Thickness(0, 0, 5, 0),
+                VerticalAlignment = VerticalAlignment.Center,
+                Visibility = Visibility.Hidden
+            };
+
+            Button closeButton = new Button
+            {
+                Content = "x",
+                Width = 24,
+                Height = 24,
+                Background = Brushes.Transparent,
+                BorderBrush = Brushes.Transparent,
+                Padding = new Thickness(0),
+                Margin = new Thickness(5, 0, 0, 0),
+                VerticalAlignment = VerticalAlignment.Center,
+                Visibility = Visibility.Visible
+            };
+
+            bool isModified = false;
+
+            closeButton.Click += (s, args) =>
+            {
+                if (!isModified)
+                {
+                    FileTabControl.Items.Remove(newTab);
+                }
+                else
+                {
+                    MessageBox.Show("Salve o arquivo antes de fechá-lo.");
+                }
+            };
+
+            innerPanel.Children.Add(closeButton);
+            innerPanel.Children.Add(modifiedIndicator);
+            headerPanel.Children.Add(innerPanel);
+
+            newTab.Header = headerPanel;
+            newTab.Tag = filePath;
+
+            string fileContent = File.ReadAllText(filePath);
+            TextEditor textEditor = new TextEditor
+            {
+                FontFamily = new FontFamily("Consolas"),
+                FontSize = 15,
+                Background = Brushes.LightGray,
+                Padding = new Thickness(10, 0, 10, 0),
+                ShowLineNumbers = true,
+                Text = fileContent
+            };
+
+            textEditor.TextChanged += (s, args) =>
+            {
+                isModified = true;
+                modifiedIndicator.Visibility = Visibility.Visible;
+                closeButton.Content = "•";
+                if (!undoHistory.ContainsKey(textEditor))
+                {
+                    undoHistory.Add(textEditor, new Stack<string>());
+                }
+                undoHistory[textEditor].Push(textEditor.Text);
+            };
+
+            newTab.Content = textEditor;
+            FileTabControl.Items.Add(newTab);
+            FileTabControl.SelectedItem = newTab;
+
+            textEditor.KeyDown += (s, args) =>
+            {
+                if ((args.Key == Key.S && Keyboard.Modifiers == ModifierKeys.Control) ||
+                    (args.Key == Key.S && Keyboard.Modifiers == (ModifierKeys.Control | ModifierKeys.Shift)))
+                {
+                    SaveCurrentFile(filePath, textEditor);
+                    isModified = false;
+                    modifiedIndicator.Visibility = Visibility.Hidden;
+                    closeButton.Content = "x";
+                    args.Handled = true;
+                }
+                else if ((args.Key == Key.Z && Keyboard.Modifiers == (ModifierKeys.Control | ModifierKeys.Shift)))
+                {
+                    if (undoHistory.ContainsKey(textEditor) && undoHistory[textEditor].Count > 1)
+                    {
+                        undoHistory[textEditor].Pop(); // Ignora o estado atual
+                        textEditor.Text = undoHistory[textEditor].Pop(); // Restaura o estado anterior
+                    }
+                    args.Handled = true;
+                }
+            };
+        }
+
+        private void SaveCurrentFile(string filePath, TextEditor textEditor)
+        {
+            try
+            {
+                File.WriteAllText(filePath, textEditor.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ocorreu um erro ao salvar o arquivo:\n\n{ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void CloseCurrentTab()
+        {
+            if (FileTabControl.SelectedItem != null)
+            {
+                FileTabControl.Items.Remove(FileTabControl.SelectedItem);
+            }
         }
 
         private void OpenFileMenu(object sender, RoutedEventArgs e)
@@ -113,32 +221,10 @@ namespace Sapho_IDE_New
             helpMenu.IsOpen = true;
         }
 
-        private void OpenFileMenu_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Arquivos de Projeto (*.spf)|*.spf|Todos os Arquivos (*.*)|*.*";
-            if (openFileDialog.ShowDialog() == true)
-            {
-                // Lógica para lidar com o arquivo selecionado
-                string selectedFilePath = openFileDialog.FileName;
-                // Implemente aqui o código para abrir o projeto
-
-            }
-        }
-
-        private void Window_KeyDown(object sender, KeyEventArgs e)
-        {
-            if ((Keyboard.Modifiers & ModifierKeys.Alt) == ModifierKeys.Alt && e.Key == Key.F4)
-            {
-                Close(); // Fecha a janela
-            }
-        }
-
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
-            Close(); // Fecha a janela principal
+            Close();
         }
-
 
         private void OpenNewProject_Click(object sender, RoutedEventArgs e)
         {
@@ -146,9 +232,18 @@ namespace Sapho_IDE_New
             newProjectWindow.ShowDialog();
         }
 
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control && e.Key == Key.W)
+            {
+                CloseCurrentTab();
+            }
+        }
 
-
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            SaveOpenedFiles();
+        }
     }
-
-
 }

@@ -54,6 +54,14 @@
           }
         }
       },
+      "Dragablz/0.0.3.234": {
+        "runtime": {
+          "lib/netcoreapp3.0/Dragablz.dll": {
+            "assemblyVersion": "0.0.3.234",
+            "fileVersion": "0.0.3.234"
+          }
+        }
+      },
       "FCTB/2.16.24": {
         "runtime": {
           "lib/FastColoredTextBox.dll": {
@@ -793,6 +801,13 @@
       "sha512": "sha512-pZ5z4hYWwE4R13UMCVs6vII//nL7hz+Nwn4oJlnsZJRGqJNy6Z9KnJiTZfly6lKFu0pMc1aWBZpx+VqFTQKP1Q==",
       "path": "controlzex/4.4.0",
       "hashPath": "controlzex.4.4.0.nupkg.sha512"
+    },
+    "Dragablz/0.0.3.234": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-soq8laPTrPWSA3vC3fnfU/gye2VejTbRXTuXzmVoHIySHWe5MhSIqR9KvFRmwk8xglsjVnnaa+su/10cFieuTw==",
+      "path": "dragablz/0.0.3.234",
+      "hashPath": "dragablz.0.0.3.234.nupkg.sha512"
     },
     "FCTB/2.16.24": {
       "type": "package",

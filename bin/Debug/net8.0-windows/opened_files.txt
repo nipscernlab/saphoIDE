@@ -1,0 +1,8 @@
+C:\Users\chrys\Desktop\Github\appenzell\Source\asm2mif.c
+C:\Users\chrys\Desktop\Github\appenzell\Source\mnemonicos.c
+C:\Users\chrys\Desktop\Github\appenzell\Source\eval.c
+C:\Users\chrys\Desktop\Github\appenzell\Source\variaveis.c
+C:\Users\chrys\Desktop\Github\appenzell\Source\asm2mif.c
+C:\Users\chrys\Desktop\Github\appenzell\Source\mnemonicos.c
+C:\Users\chrys\Desktop\Github\appenzell\Source\t2t.c
+C:\Users\chrys\Desktop\Github\appenzell\Source\teste.asm

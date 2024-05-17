@@ -3,11 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
+        xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
         xmlns:local="clr-namespace:Sapho_IDE_New"
         KeyDown="Window_KeyDown"
         mc:Ignorable="d"
-
         Title="SAPHO IDE" MinWidth="800" MinHeight="600"
         Icon="/Icons/1498583471_kcmprocessor.ico"
         Background="#242424">
@@ -22,13 +21,11 @@
             <Setter Property="FontFamily" Value="Segoe UI"/>
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="MinWidth" Value="150"/>
-            <!-- Define a largura mínima -->
             <Setter Property="ItemContainerStyle">
                 <Setter.Value>
                     <Style TargetType="MenuItem">
                         <Setter Property="Padding" Value="10"/>
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        <!-- Centraliza o texto horizontalmente -->
                     </Style>
                 </Setter.Value>
             </Setter>
@@ -41,9 +38,7 @@
             <MenuItem Header="Save All"/>
             <MenuItem Header="Save Backup"/>
             <MenuItem Header="Exit Alt+F4" Click="Exit_Click"/>
-            <!-- Adicionando evento de clique para Exit -->
         </ContextMenu>
-
 
         <!-- Menu suspenso para o botão "Help" -->
         <ContextMenu x:Key="HelpMenu" Style="{StaticResource ContextMenuStyle}" StaysOpen="False">
@@ -55,16 +50,13 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <!-- Definição de coluna para o retângulo cinza -->
             <ColumnDefinition Width="2*"/>
-            <!-- Definição de coluna para o conteúdo -->
             <ColumnDefinition Width="8*"/>
         </Grid.ColumnDefinitions>
 
         <!-- Botões no topo da janela -->
         <Border Background="#333333" Height="48" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="10,0,10,0" CornerRadius="5">
             <StackPanel Orientation="Horizontal">
-                <!-- Botão "File" -->
                 <Button Content="File" FontSize="16" Margin="10" Height="24" Click="OpenFileMenu">
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">
@@ -74,8 +66,6 @@
                         </Style>
                     </Button.Style>
                 </Button>
-
-                <!-- Botão "Help" -->
                 <Button Content="Help" FontSize="16" Margin="10" Height="24" Click="OpenHelpMenu">
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">
@@ -94,31 +84,10 @@
         <!-- Painel redimensionável -->
         <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Left" ResizeDirection="Columns" Margin="0,68,0,10"/>
 
-        <!-- AvalonEdit TextEditors dentro de um TabControl -->
-        <TabControl FontSize="15" Grid.Column="1" Margin="10,68,10,10">
-            <TabItem Header="File 1">
-                <avalonedit:TextEditor x:Name="CodeEditor"
-                                    FontFamily="Consolas"
-                                    SyntaxHighlighting="C#"
-                                    FontSize="15pt"
-                                    Background="LightGray"
-                                    Padding="10,0,10,0"
-                                    ShowLineNumbers="True"/>
-                                    
-            </TabItem>
-            <TabItem Header="File 2">
-                <avalonedit:TextEditor x:Name="CodeEditor2"
-                                    FontFamily="Consolas"
-                                    SyntaxHighlighting="C#"
-                                    FontSize="15pt"
-                                    Background="LightGray"
-                                    Padding="10,0,10,0"
-                                    ShowLineNumbers="True"/>
-            </TabItem>
-        </TabControl>
-
-
-
-
+        <!-- Dragablz.TabablzControl para as guias -->
+        <dragablz:TabablzControl x:Name="FileTabControl" Grid.Column="1" Margin="10,68,10,10"
+                                 BorderThickness="0">
+            <!-- As abas serão adicionadas dinamicamente no código-behind -->
+        </dragablz:TabablzControl>
     </Grid>
 </Window>

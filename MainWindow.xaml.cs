@@ -20,6 +20,7 @@ using FormsOrientation = System.Windows.Forms.Orientation;
 using WpfKeyEventArgs = System.Windows.Input.KeyEventArgs;
 using FormsKeyEventArgs = System.Windows.Forms.KeyEventArgs;
 using System.Windows.Documents;
+using System.Text;
 
 namespace Sapho_IDE_New
 {
@@ -180,12 +181,39 @@ namespace Sapho_IDE_New
 
             if (openFileDialog.ShowDialog() == true)
             {
-                List <string> selectedFiles = new List < string> (openFileDialog.FileNames);
+                foreach (string fileName in openFileDialog.FileNames)
+                {
+                    try
+                    {
+                        FileInfo fileInfo = new FileInfo(fileName);
 
-                // Passa os arquivos selecionados para o método LoadFileTree
-                LoadFileTree(selectedFiles);
+                        // Verifica se o tamanho do arquivo é maior que 10 MB
+                        if (fileInfo.Length > 10 * 1024 * 1024) // 10 MB em bytes
+                        {
+                            // Exibe um aviso se o arquivo for maior que 10 MB
+                            WpfMessageBox.Show($"O arquivo \"{fileName}\" é muito grande (mais de 10 MB). Pode levar mais tempo para carregar.", "Aviso", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        }
+
+                        // Verifica o número de linhas do arquivo
+                        int numLines = File.ReadLines(fileName).Count();
+                        if (numLines > 30000000) // 30 milhões de linhas
+                        {
+                            // Exibe um aviso se o arquivo tiver mais de 30 milhões de linhas
+                            WpfMessageBox.Show($"O arquivo \"{fileName}\" tem mais de 30 milhões de linhas de código. Pode levar mais tempo para carregar.", "Aviso", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        }
+
+                        // Carrega o arquivo se estiver dentro dos limites
+                        OpenFile(fileName);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Trata qualquer exceção durante o processo de abertura do arquivo
+                        WpfMessageBox.Show($"Erro ao abrir o arquivo \"{fileName}\": {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
             }
         }
+
 
 
 
@@ -226,116 +254,132 @@ namespace Sapho_IDE_New
 
 
 
-
-        private void OpenFile(string filePath)
+        private async Task OpenFile(string filePath)
         {
-            TabItem newTab = new TabItem();
-            DockPanel headerPanel = new DockPanel();
-            StackPanel innerPanel = new StackPanel { Orientation = WpfOrientation.Horizontal };
-
-            TextBlock fileNameTextBlock = new TextBlock
+            try
             {
-                Text = Path.GetFileName(filePath),
-                Margin = new Thickness(0, 0, 5, 0),
-                VerticalAlignment = VerticalAlignment.Center
-            };
+                const int bufferSize = 4096; // Tamanho do buffer de leitura em bytes
+                const int linesPerPage = 100; // Número de linhas por página
+                TabItem newTab = new TabItem();
+                DockPanel headerPanel = new DockPanel();
+                StackPanel innerPanel = new StackPanel { Orientation = WpfOrientation.Horizontal };
 
-            innerPanel.Children.Add(fileNameTextBlock);
-
-            TextBlock modifiedIndicator = new TextBlock
-            {
-                Text = "•",
-                FontSize = 16,
-                FontWeight = FontWeights.Bold,
-                Foreground = Brushes.Red,
-                Margin = new Thickness(0, 0, 5, 0),
-                VerticalAlignment = VerticalAlignment.Center,
-                Visibility = Visibility.Hidden
-            };
-
-            WpfButton closeButton = new WpfButton
-            {
-                Content = "x",
-                Width = 24,
-                Height = 24,
-                Background = Brushes.Transparent,
-                BorderBrush = Brushes.Transparent,
-                Padding = new Thickness(0),
-                Margin = new Thickness(5, 0, 0, 0),
-                VerticalAlignment = VerticalAlignment.Center,
-                Visibility = Visibility.Visible
-            };
-
-            bool isModified = false;
-
-            closeButton.Click += (s, args) =>
-            {
-                if (!isModified)
+                TextBlock fileNameTextBlock = new TextBlock
                 {
-                    FileTabControl.Items.Remove(newTab);
-                }
-                else
+                    Text = Path.GetFileName(filePath),
+                    Margin = new Thickness(0, 0, 5, 0),
+                    VerticalAlignment = VerticalAlignment.Center
+                };
+
+                innerPanel.Children.Add(fileNameTextBlock);
+
+                TextBlock modifiedIndicator = new TextBlock
                 {
-                    WpfMessageBox.Show("Salve o arquivo antes de fechá-lo.");
-                }
-            };
+                    Text = "•",
+                    FontSize = 16,
+                    FontWeight = FontWeights.Bold,
+                    Foreground = Brushes.Red,
+                    Margin = new Thickness(0, 0, 5, 0),
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Visibility = Visibility.Hidden
+                };
 
-            innerPanel.Children.Add(closeButton);
-            innerPanel.Children.Add(modifiedIndicator);
-            headerPanel.Children.Add(innerPanel);
-
-            newTab.Header = headerPanel;
-            newTab.Tag = filePath;
-
-            string fileContent = File.ReadAllText(filePath);
-            TextEditor textEditor = new TextEditor
-            {
-                FontFamily = new FontFamily("Consolas"),
-                FontSize = 15,
-                Background = Brushes.LightGray,
-                Padding = new Thickness(10, 0, 10, 0),
-                ShowLineNumbers = true,
-                Text = fileContent
-            };
-
-            textEditor.TextChanged += (s, args) =>
-            {
-                isModified = true;
-                modifiedIndicator.Visibility = Visibility.Visible;
-                closeButton.Content = "•";
-                if (!undoHistory.ContainsKey(textEditor))
+                WpfButton closeButton = new WpfButton
                 {
-                    undoHistory.Add(textEditor, new Stack<string>());
-                }
-                undoHistory[textEditor].Push(textEditor.Text);
-            };
+                    Content = "x",
+                    Width = 24,
+                    Height = 24,
+                    Background = Brushes.Transparent,
+                    BorderBrush = Brushes.Transparent,
+                    Padding = new Thickness(0),
+                    Margin = new Thickness(5, 0, 0, 0),
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Visibility = Visibility.Visible
+                };
 
-            newTab.Content = textEditor;
-            FileTabControl.Items.Add(newTab);
-            FileTabControl.SelectedItem = newTab;
+                bool isModified = false;
 
-            textEditor.KeyDown += (s, args) =>
-            {
-                if ((args.Key == Key.S && Keyboard.Modifiers == ModifierKeys.Control) ||
-                    (args.Key == Key.S && Keyboard.Modifiers == (ModifierKeys.Control | ModifierKeys.Shift)))
+                closeButton.Click += (s, args) =>
                 {
-                    SaveCurrentFile(filePath, textEditor);
-                    isModified = false;
-                    modifiedIndicator.Visibility = Visibility.Hidden;
-                    closeButton.Content = "x";
-                    args.Handled = true;
-                }
-                else if ((args.Key == Key.Z && Keyboard.Modifiers == (ModifierKeys.Control | ModifierKeys.Shift)))
-                {
-                    if (undoHistory.ContainsKey(textEditor) && undoHistory[textEditor].Count > 1)
+                    if (!isModified)
                     {
-                        undoHistory[textEditor].Pop(); // Ignora o estado atual
-                        textEditor.Text = undoHistory[textEditor].Pop(); // Restaura o estado anterior
+                        FileTabControl.Items.Remove(newTab);
                     }
-                    args.Handled = true;
+                    else
+                    {
+                        WpfMessageBox.Show("Salve o arquivo antes de fechá-lo.");
+                    }
+                };
+
+                innerPanel.Children.Add(closeButton);
+                innerPanel.Children.Add(modifiedIndicator);
+                headerPanel.Children.Add(innerPanel);
+
+                newTab.Header = headerPanel;
+                newTab.Tag = filePath;
+
+                var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite, bufferSize, FileOptions.SequentialScan);
+                var reader = new StreamReader(fileStream);
+
+                var textEditor = new TextEditor
+                {
+                    FontFamily = new FontFamily("Consolas"),
+                    FontSize = 15,
+                    Background = Brushes.LightGray,
+                    Padding = new Thickness(10, 0, 10, 0),
+                    ShowLineNumbers = true
+                };
+
+                newTab.Content = textEditor;
+                FileTabControl.Items.Add(newTab);
+                FileTabControl.SelectedItem = newTab;
+
+                var buffer = new char[bufferSize];
+                int bytesRead;
+                int linesRead = 0;
+                StringBuilder linesBuffer = new StringBuilder();
+
+                while ((bytesRead = await reader.ReadAsync(buffer, 0, bufferSize)) > 0)
+                {
+                    for (int i = 0; i < bytesRead; i++)
+                    {
+                        if (buffer[i] == '\n')
+                        {
+                            linesRead++;
+                            linesBuffer.Append(buffer[i]);
+
+                            if (linesRead % linesPerPage == 0)
+                            {
+                                textEditor.AppendText(linesBuffer.ToString());
+                                linesBuffer.Clear();
+                            }
+                        }
+                        else
+                        {
+                            linesBuffer.Append(buffer[i]);
+                        }
+                    }
                 }
-            };
+
+                if (linesBuffer.Length > 0)
+                {
+                    textEditor.AppendText(linesBuffer.ToString());
+                }
+
+                reader.Close();
+                fileStream.Close();
+            }
+            catch (OutOfMemoryException ex)
+            {
+                WpfMessageBox.Show($"Erro ao abrir o arquivo: {ex.Message}", "Erro de Memória", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (Exception ex)
+            {
+                WpfMessageBox.Show($"Erro ao abrir o arquivo: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
+
+
 
         private void SaveCurrentFile(string filePath, TextEditor textEditor)
         {

@@ -5,11 +5,6 @@ VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sapho_IDE_New", "Sapho_IDE_New.csproj", "{5B21C8B0-2E95-4E62-9EE4-F417916B6917}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Itens de Solução", "Itens de Solução", "{4F64ADC6-66F2-4190-95BC-586186C3A4F2}"
-	ProjectSection(SolutionItems) = preProject
-		LightTheme.xaml = LightTheme.xaml
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

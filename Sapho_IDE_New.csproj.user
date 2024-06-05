@@ -15,6 +15,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="CommonTheme.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="DarkTheme.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="LightTheme.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>

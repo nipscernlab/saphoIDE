@@ -9,126 +9,132 @@
         KeyDown="Window_KeyDown"
         mc:Ignorable="d"
         Title="SAPHO IDE" MinWidth="800" MinHeight="600"
-        Icon="pack://application:,,,/Icons/1498583471_kcmprocessor.ico"
-        Background="#242424">
+        Icon="pack://application:,,,/Icons/1498583471_kcmprocessor.ico">
+        
+        <Window.Background>
+        <SolidColorBrush Color="{DynamicResource WindowBackgroundColor}" />
+    </Window.Background>
+    
     <Window.Resources>
-        <!-- Estilo personalizado para o menu suspenso -->
-        <Style x:Key="ContextMenuStyle" TargetType="{x:Type ContextMenu}">
-    <Setter Property="Background" Value="#333333"/>
-    <Setter Property="Foreground" Value="White"/>
-    <Setter Property="BorderThickness" Value="1"/>
-    <Setter Property="BorderBrush" Value="#555555"/>
-    <Setter Property="Placement" Value="Bottom"/>
-    <Setter Property="VerticalOffset" Value="3"/>
-    <Setter Property="FontFamily" Value="Segoe UI"/>
-    <Setter Property="FontSize" Value="14"/>
-    <Setter Property="MinWidth" Value="150"/>
-    <Setter Property="ItemContainerStyle">
-        <Setter.Value>
-            <Style TargetType="MenuItem">
-                <Setter Property="Padding" Value="10"/>
-                <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                <Setter Property="VerticalContentAlignment" Value="Center"/>
-                <Setter Property="FontSize" Value="16"/>
+        <!-- Inclua os temas -->
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="CommonTheme.xaml" />
+                <ResourceDictionary Source="LightTheme.xaml" />
+                <ResourceDictionary Source="DarkTheme.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- Estilo personalizado para o menu suspenso -->
+            <Style x:Key="ContextMenuStyle" TargetType="{x:Type ContextMenu}">
+                <Setter Property="Background" Value="#333333"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="BorderBrush" Value="#555555"/>
+                <Setter Property="Placement" Value="Bottom"/>
+                <Setter Property="VerticalOffset" Value="3"/>
+                <Setter Property="FontFamily" Value="Segoe UI"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="MinWidth" Value="150"/>
+                <Setter Property="ItemContainerStyle">
+                    <Setter.Value>
+                        <Style TargetType="MenuItem">
+                            <Setter Property="Padding" Value="10"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            <Setter Property="FontSize" Value="16"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type MenuItem}">
+                                        <Border x:Name="Border" Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}"
+                                                CornerRadius="5">
+                                            <Grid>
+                                                <ContentPresenter Content="{TemplateBinding Header}"
+                                                                  ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                                                  ContentStringFormat="{TemplateBinding HeaderStringFormat}"
+                                                                  HorizontalAlignment="Center"
+                                                                  VerticalAlignment="Center"
+                                                                  Margin="{TemplateBinding Padding}"/>
+                                                <Image Source="{Binding Path=(MenuItem.Icon), RelativeSource={RelativeSource TemplatedParent}}"
+                                                       VerticalAlignment="Center"
+                                                       Margin="5"
+                                                       Width="24"
+                                                       Height="24"/>
+                                            </Grid>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="Border" Property="Background" Value="#555555"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Setter.Value>
+                </Setter>
+                <!-- Definir o estilo personalizado para o ScrollViewer -->
                 <Setter Property="Template">
                     <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type MenuItem}">
-                            <Border x:Name="Border" Background="{TemplateBinding Background}"
+                        <ControlTemplate TargetType="{x:Type ContextMenu}">
+                            <Border BorderThickness="{TemplateBinding BorderThickness}"
                                     BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}"
-                                    CornerRadius="5">
-                                <Grid>
-                                    <ContentPresenter Content="{TemplateBinding Header}"
-                                                      ContentTemplate="{TemplateBinding HeaderTemplate}"
-                                                      ContentStringFormat="{TemplateBinding HeaderStringFormat}"
-                                                      HorizontalAlignment="Center"
-                                                      VerticalAlignment="Center"
-                                                      Margin="{TemplateBinding Padding}"/>
-                                    <Image Source="{Binding Path=(MenuItem.Icon), RelativeSource={RelativeSource TemplatedParent}}"
-                                           VerticalAlignment="Center"
-                                           Margin="5"
-                                           Width="24"
-                                           Height="24"/>
-                                </Grid>
+                                    Background="{TemplateBinding Background}"
+                                    CornerRadius="10">
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="5" Opacity="0.5" ShadowDepth="5"/>
+                                </Border.Effect>
+                                <ScrollViewer CanContentScroll="True" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled">
+                                    <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                </ScrollViewer>
                             </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="Border" Property="Background" Value="#555555"/>
-                                    <Setter Property="Foreground" Value="White"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
             </Style>
-        </Setter.Value>
-    </Setter>
-    <!-- Definir o estilo personalizado para o ScrollViewer -->
-    <Setter Property="Template">
-        <Setter.Value>
-            <ControlTemplate TargetType="{x:Type ContextMenu}">
-                <Border BorderThickness="{TemplateBinding BorderThickness}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        Background="{TemplateBinding Background}"
-                        CornerRadius="10">
-                    <Border.Effect>
-                        <DropShadowEffect BlurRadius="5" Opacity="0.5" ShadowDepth="5"/>
-                    </Border.Effect>
-                    <ScrollViewer CanContentScroll="True" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled">
-                        <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-                    </ScrollViewer>
-                </Border>
-            </ControlTemplate>
-        </Setter.Value>
-    </Setter>
-</Style>
 
-        <ContextMenu x:Key="FileMenu" Style="{StaticResource ContextMenuStyle}" StaysOpen="False">
-            <MenuItem Header="New Project" Click="OpenNewProject_Click">
-                <MenuItem.Icon>
-                    <Image Source="Icons/icon-sapho.ico" Width="24" Height="24"/>
-                </MenuItem.Icon>
-            </MenuItem>
+            <ContextMenu x:Key="FileMenu" Style="{StaticResource ContextMenuStyle}" StaysOpen="False">
+                <MenuItem Header="New Project" Click="OpenNewProject_Click">
+                    <MenuItem.Icon>
+                        <Image Source="Icons/icon-sapho.ico" Width="24" Height="24"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Open Project" Click="OpenFileMenu_Click">
+                    <MenuItem.Icon>
+                        <Image Source="Icons/icon-sapho.ico" Width="24" Height="24"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Open Folder" Click="OpenFolderMenu_Click">
+                    <MenuItem.Icon>
+                        <Image Source="Icons/icon-sapho.ico" Width="24" Height="24"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Save All">
+                    <MenuItem.Icon>
+                        <Image Source="Icons/icon-sapho.ico" Width="24" Height="24"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Save Backup">
+                    <MenuItem.Icon>
+                        <Image Source="Icons/icon-sapho.ico" Width="24" Height="24"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Exit Alt+F4" Click="Exit_Click">
+                    <MenuItem.Icon>
+                        <Image Source="Icons/icon-sapho.ico" Width="24" Height="24"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </ContextMenu>
 
-            <MenuItem Header="Open Project" Click="OpenFileMenu_Click">
-                <MenuItem.Icon>
-                    <Image Source="Icons/icon-sapho.ico" Width="24" Height="24"/>
-                </MenuItem.Icon>
-            </MenuItem>
-
-            <MenuItem Header="Open Folder" Click="OpenFolderMenu_Click">
-                <MenuItem.Icon>
-                    <Image Source="Icons/icon-sapho.ico" Width="24" Height="24"/>
-                </MenuItem.Icon>
-            </MenuItem>
-
-            <MenuItem Header="Save All">
-                <MenuItem.Icon>
-                    <Image Source="Icons/icon-sapho.ico" Width="24" Height="24"/>
-                </MenuItem.Icon>
-            </MenuItem>
-
-            <MenuItem Header="Save Backup">
-                <MenuItem.Icon>
-                    <Image Source="Icons/icon-sapho.ico" Width="24" Height="24"/>
-                </MenuItem.Icon>
-            </MenuItem>
-
-            <MenuItem Header="Exit Alt+F4" Click="Exit_Click">
-                <MenuItem.Icon>
-                    <Image Source="Icons/icon-sapho.ico" Width="24" Height="24"/>
-                </MenuItem.Icon>
-            </MenuItem>
-        </ContextMenu>
-
-
-
-        <!-- Menu suspenso para o botão "Help" -->
-        <ContextMenu x:Key="HelpMenu" Style="{StaticResource ContextMenuStyle}" StaysOpen="False">
-            <MenuItem Header="About"/>
-            <MenuItem Header="Documentation"/>
-            <MenuItem Header="Support"/>
-        </ContextMenu>
+            <!-- Menu suspenso para o botão "Help" -->
+            <ContextMenu x:Key="HelpMenu" Style="{StaticResource ContextMenuStyle}" StaysOpen="False">
+                <MenuItem Header="About"/>
+                <MenuItem Header="Documentation"/>
+                <MenuItem Header="Support"/>
+            </ContextMenu>
+        </ResourceDictionary>
     </Window.Resources>
 
     <Grid>
@@ -136,15 +142,6 @@
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="8*"/>
         </Grid.ColumnDefinitions>
-
-        <!-- Botões no topo da janela -->
-        <!-- Imagem -->
-        <!-- Dragablz.TabablzControl para as guias -->
-        <dragablz:TabablzControl x:Name="FileTabControl" Grid.Column="1" Margin="10,68,10,10"
-                                 BorderThickness="0">
-            <!-- As abas serão adicionadas dinamicamente no código-behind -->
-        </dragablz:TabablzControl>
-
 
         <!-- Botões no topo da janela -->
         <Border Background="#333333" Height="48" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="10,0,10,0" CornerRadius="5" Panel.ZIndex="2">
@@ -167,42 +164,60 @@
                         </Style>
                     </Button.Style>
                 </Button>
+                <Button Content="Tema Claro" FontSize="16" Margin="10" Height="24" Click="LightThemeButton_Click">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button Content="Tema Escuro" FontSize="16" Margin="10" Height="24" Click="DarkThemeButton_Click">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                        </Style>
+                    </Button.Style>
+                </Button>
             </StackPanel>
         </Border>
 
         <!-- Retângulo na vertical no lado esquerdo -->
         <Border Grid.Column="0" Background="Gray" Margin="10,68,10,10" CornerRadius="10">
-            <TreeView x:Name="FileTreeView" FontSize="15" FontFamily="Consolas" Margin="10" 
-           ScrollViewer.VerticalScrollBarVisibility="Hidden" 
-           ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-           Foreground="#CCCCCC">
-    <TreeView.Style>
-        <Style TargetType="{x:Type TreeView}">
-            <Setter Property="BorderBrush" Value="Gray"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Background" Value="Gray"/>
-        </Style>
-    </TreeView.Style>
-    <TreeView.ItemContainerStyle>
-        <Style TargetType="{x:Type TreeViewItem}">
-            <Setter Property="Foreground" Value="#CCCCCC"/> <!-- Cinza claro -->
-        </Style>
-    </TreeView.ItemContainerStyle>
-    <!-- Aqui vamos adicionar os itens da árvore -->
-    <TreeView.ItemTemplate>
-        <HierarchicalDataTemplate ItemsSource="{Binding Items}">
-            <TextBlock Text="{Binding Name}" Foreground="#CCCCCC"/> <!-- Cinza claro -->
-        </HierarchicalDataTemplate>
-    </TreeView.ItemTemplate>
-</TreeView>
-
+            <TreeView x:Name="FileTreeView" FontSize="15" FontFamily="Consolas" Margin="10"
+                      ScrollViewer.VerticalScrollBarVisibility="Hidden" 
+                      ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                      Foreground="#CCCCCC">
+                <TreeView.Style>
+                    <Style TargetType="{x:Type TreeView}">
+                        <Setter Property="BorderBrush" Value="Gray"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="Background" Value="Gray"/>
+                    </Style>
+                </TreeView.Style>
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="{x:Type TreeViewItem}">
+                        <Setter Property="Foreground" Value="#CCCCCC"/> <!-- Cinza claro -->
+                    </Style>
+                </TreeView.ItemContainerStyle>
+                <!-- Aqui vamos adicionar os itens da árvore -->
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Items}">
+                        <TextBlock Text="{Binding Name}" Foreground="#CCCCCC"/> <!-- Cinza claro -->
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
         </Border>
 
         <!-- Painel redimensionável -->
         <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Left" ResizeDirection="Columns" Margin="0,68,0,10"/>
 
         <!-- Dragablz.TabablzControl para as guias -->
-
-        <!-- Imagem -->
+        <dragablz:TabablzControl x:Name="FileTabControl" Grid.Column="1" Margin="10,68,10,10" BorderThickness="0">
+            <!-- As abas serão adicionadas dinamicamente no código-behind -->
+        </dragablz:TabablzControl>
     </Grid>
 </Window>

@@ -26,6 +26,22 @@ namespace Sapho_IDE_New
 {
     public partial class MainWindow : Window
     {
+
+        private void LightThemeButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Alterar para o tema claro
+            Resources.MergedDictionaries.Clear();
+            Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new System.Uri("LightTheme.xaml", System.UriKind.Relative) });
+        }
+
+        private void DarkThemeButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Alterar para o tema escuro
+            Resources.MergedDictionaries.Clear();
+            Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new System.Uri("DarkTheme.xaml", System.UriKind.Relative) });
+        }
+
+
         private List<string> openedFilePaths = new List<string>();
         private Dictionary<TextEditor, Stack<string>> undoHistory = new Dictionary<TextEditor, Stack<string>>();
 

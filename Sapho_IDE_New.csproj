@@ -6,12 +6,17 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>1498583471_kcmprocessor.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="CSharp.xshd" />
     <None Remove="Icons\1498583471_kcmprocessor.ico" />
     <None Remove="Icons\icon-sapho.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="1498583471_kcmprocessor.ico" />
   </ItemGroup>
 
   <ItemGroup>

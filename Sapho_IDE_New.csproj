@@ -37,6 +37,7 @@
   <ItemGroup>
     <PackageReference Include="AvalonEdit" Version="6.3.0.90" />
     <PackageReference Include="BotTimeICSharpCode.AvalonEdit" Version="1.0.2" />
+    <PackageReference Include="ConEmu.Core" Version="23.7.24" />
     <PackageReference Include="DevExpressMvvm" Version="23.2.3" />
     <PackageReference Include="Dragablz" Version="0.0.3.234" />
     <PackageReference Include="FCTB" Version="2.16.24" />
@@ -45,6 +46,7 @@
     <PackageReference Include="MaterialDesignThemes" Version="5.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="PresentationFramework.Aero2" Version="1.0.1" />
+    <PackageReference Include="Terminal.Gui" Version="1.17.0" />
     <PackageReference Include="WindowsAPICodePack" Version="7.0.4" />
     <PackageReference Include="WindowsAPICodePack-Shell" Version="1.1.1" />
   </ItemGroup>

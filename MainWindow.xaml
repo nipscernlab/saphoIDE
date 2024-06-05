@@ -11,7 +11,6 @@
         mc:Ignorable="d"
         Title="SAPHO IDE" MinWidth="800" MinHeight="600"
         Icon="pack://application:,,,/Icons/1498583471_kcmprocessor.ico"
-        Style="{StaticResource MaterialDesignWindow}"
         AllowsTransparency="false">
 
     <Window.Background>
@@ -27,6 +26,68 @@
                 <ResourceDictionary Source="LightTheme.xaml" />
                 <ResourceDictionary Source="DarkTheme.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <Style x:Key="CustomMaterialDesignButtonStyle" TargetType="{x:Type Button}">
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="Border" Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="5">
+                                <Grid>
+                                    <ContentPresenter Content="{TemplateBinding Content}"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Margin="{TemplateBinding Padding}"/>
+                                    <!-- Aqui você pode adicionar um ícone, se necessário -->
+                                </Grid>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="Border" Property="Background" Value="#555555"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="CustomDesignToolButtonStyle" TargetType="{x:Type Button}">
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="Border" Background="{TemplateBinding Background}"
+            BorderBrush="{TemplateBinding BorderBrush}"
+            BorderThickness="{TemplateBinding BorderThickness}"
+            CornerRadius="5">
+                                <Grid>
+                                    <ContentPresenter Content="{TemplateBinding Content}"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Margin="{TemplateBinding Padding}"/>
+                                    <!-- Aqui você pode adicionar um ícone, se necessário -->
+                                </Grid>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="Border" Property="Background" Value="#555555"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
 
             <!-- Estilo personalizado para o menu suspenso -->
             <Style x:Key="ContextMenuStyle" TargetType="{x:Type ContextMenu}">
@@ -138,7 +199,19 @@
                 <MenuItem Header="Documentation"/>
                 <MenuItem Header="Support"/>
             </ContextMenu>
+
+
+            <ContextMenu x:Key="ToyBrickContextMenu" Style="{StaticResource ContextMenuStyle}" StaysOpen="False">
+                <MenuItem Header="Substituir Ícone">
+                    <MenuItem.Icon>
+                        <materialDesign:PackIcon Kind="ToyBrickPlus" Foreground="Goldenrod" Height="25" Width="30"/>
+                    </MenuItem.Icon>
+                    <MenuItem Header="ToyBrick" />
+                </MenuItem>
+            </ContextMenu>
+
         </ResourceDictionary>
+
     </Window.Resources>
 
     <Grid Margin="0,10,0,0">
@@ -151,67 +224,52 @@
         <Border Background="#333333" Height="48" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="10,0,10,0" CornerRadius="5" Panel.ZIndex="2">
             <DockPanel LastChildFill="True">
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                    <Button FontSize="16" VerticalAlignment="Center" Margin="5" Height="40" Width="90" Click="OpenFileMenu">
-                        <Button.Style>
-                            <Style TargetType="{x:Type Button}">
-                                <Setter Property="Foreground" Value="White"/>
-                                <Setter Property="Background" Value="Transparent"/>
-                                <Setter Property="BorderBrush" Value="Transparent"/>
-                            </Style>
-                        </Button.Style>
+                <StackPanel Orientation="Horizontal" Width="310">
+                    <Button Style="{StaticResource CustomMaterialDesignButtonStyle}" FontSize="16" VerticalAlignment="Center" Margin="5" Height="40" Width="90" Click="OpenFileMenu">
+
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <materialDesign:PackIcon Foreground="Gray" Kind="File" Height="24" Width="24" />
+                            <materialDesign:PackIcon Foreground="Gray" Kind="File" Height="25" Width="25" />
                             <TextBlock x:Name="FileTextBlock" Text="File" VerticalAlignment="Center" Margin="5,0,0,0"/>
                         </StackPanel>
-                        <Button.Triggers>
-                            <EventTrigger RoutedEvent="MouseEnter">
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="FileTextBlock" Storyboard.TargetProperty="FontSize" To="20" Duration="0:0:0.2"/>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </EventTrigger>
-                            <EventTrigger RoutedEvent="MouseLeave">
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="FileTextBlock" Storyboard.TargetProperty="FontSize" To="16" Duration="0:0:0.2"/>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </EventTrigger>
-                        </Button.Triggers>
                     </Button>
 
-                    <Button FontSize="16" VerticalAlignment="Center" Margin="5" Height="40" Width="90" Click="OpenHelpMenu">
-                        <Button.Style>
-                            <Style TargetType="{x:Type Button}">
-                                <Setter Property="Foreground" Value="White"/>
-                                <Setter Property="Background" Value="Transparent"/>
-                                <Setter Property="BorderBrush" Value="Transparent"/>
-                            </Style>
-                        </Button.Style>
+                    <Button Style="{StaticResource CustomMaterialDesignButtonStyle}" FontSize="16" VerticalAlignment="Center" Margin="5" Height="40" Width="90" Click="OpenHelpMenu">
+
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <materialDesign:PackIcon Foreground="Gray" Kind="HelpBox" Height="25" Width="42" />
-                        <TextBlock Text="Help" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                            <materialDesign:PackIcon Foreground="Gray" Kind="HelpBox" Height="25" Width="25" />
+                            <TextBlock Text="Help" VerticalAlignment="Center" Margin="5,0,0,0"/>
                         </StackPanel>
                     </Button>
 
-                    <Button FontSize="16" VerticalAlignment="Center" Margin="5" Height="40" Width="110" Click="ThemeToggleButton_Click">
-                        <Button.Style>
-                            <Style TargetType="{x:Type Button}">
-                                <Setter Property="Foreground" Value="White"/>
-                                <Setter Property="Background" Value="Transparent"/>
-                                <Setter Property="BorderBrush" Value="Transparent"/>
-                            </Style>
-                        </Button.Style>
+                </StackPanel>
+
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Style="{StaticResource CustomMaterialDesignButtonStyle}" Width="40" Height="40" Margin="5">
+                        <materialDesign:PackIcon VerticalAlignment="Center" Foreground="Goldenrod" Kind="ArrowLeftThick" Height="25" Width="30" />
+                    </Button>
+                    <Button Style="{StaticResource CustomMaterialDesignButtonStyle}" Width="40" Height="40" Margin="5">
+                        <materialDesign:PackIcon VerticalAlignment="Center" Foreground="Goldenrod" Kind="ArrowRightThick" Height="25" Width="30" />
+                    </Button>
+                    <Button Style="{StaticResource CustomMaterialDesignButtonStyle}" Width="40" Height="40" Margin="5">
+                        <materialDesign:PackIcon VerticalAlignment="Center" Foreground="Goldenrod" Kind="Wrench" Height="25" Width="30" />
+                    </Button>
+                    <Button x:Name="ToyBrickButton" Style="{StaticResource CustomMaterialDesignButtonStyle}" Width="40" Height="40" Margin="5" ContextMenu="{StaticResource ToyBrickContextMenu}">
+                        <materialDesign:PackIcon x:Name="toyBrickIcon" VerticalAlignment="Center" Foreground="Goldenrod" Kind="ToyBrick" Height="25" Width="30"/>
+                    </Button>
+                    <Button Style="{StaticResource CustomMaterialDesignButtonStyle}" Width="40" Height="40" Margin="5">
+                        <materialDesign:PackIcon VerticalAlignment="Center" Foreground="Goldenrod" Kind="Memory" Height="32" Width="32" />
+                    </Button>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Style="{StaticResource CustomMaterialDesignButtonStyle}" FontSize="16" VerticalAlignment="Center" Margin="5" Height="40" Width="110" Click="ThemeToggleButton_Click">
+
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <materialDesign:PackIcon Foreground="Gray" VerticalAlignment="Center" Kind="ThemeLightDark" Height="30" Width="45" />
+                            <materialDesign:PackIcon Foreground="Gray" VerticalAlignment="Center" Kind="ThemeLightDark" Height="25" Width="25" />
                             <TextBlock Text="Theme" VerticalAlignment="Center" Margin="5,0,0,0"/>
                         </StackPanel>
                     </Button>
-
-                    
-                    <materialDesign:PackIcon VerticalAlignment="Center" Foreground="Goldenrod" Kind="Memory" Height="35" Width="49" />
                 </StackPanel>
 
             </DockPanel>
@@ -253,6 +311,92 @@
         <dragablz:TabablzControl x:Name="FileTabControl" Grid.Column="1" Margin="10,68,10,10" BorderThickness="0">
             <!-- As abas serão adicionadas dinamicamente no código-behind -->
         </dragablz:TabablzControl>
+        <Border Grid.Column="0" Background="Gray" Margin="10,68,10,10" CornerRadius="10">
+            <TreeView x:Name="FileTreeView1" FontSize="15" FontFamily="Consolas" Margin="10"
+                ScrollViewer.VerticalScrollBarVisibility="Hidden" 
+                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                Foreground="#CCCCCC">
+                <TreeView.Style>
+                    <Style TargetType="{x:Type TreeView}">
+                        <Setter Property="BorderBrush" Value="Gray"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="Background" Value="Gray"/>
+                    </Style>
+                </TreeView.Style>
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="{x:Type TreeViewItem}">
+                        <Setter Property="Foreground" Value="#CCCCCC"/>
+                        <!-- Cinza claro -->
+                    </Style>
+                </TreeView.ItemContainerStyle>
+                <!-- Aqui vamos adicionar os itens da árvore -->
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Items}">
+                        <TextBlock Text="{Binding Name}" Foreground="#CCCCCC"/>
+                        <!-- Cinza claro -->
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+        </Border>
+        <Border Grid.Column="0" Background="Gray" Margin="10,68,10,10" CornerRadius="10">
+            <TreeView x:Name="FileTreeView2" FontSize="15" FontFamily="Consolas" Margin="10"
+                ScrollViewer.VerticalScrollBarVisibility="Hidden" 
+                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                Foreground="#CCCCCC">
+                <TreeView.Style>
+                    <Style TargetType="{x:Type TreeView}">
+                        <Setter Property="BorderBrush" Value="Gray"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="Background" Value="Gray"/>
+                    </Style>
+                </TreeView.Style>
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="{x:Type TreeViewItem}">
+                        <Setter Property="Foreground" Value="#CCCCCC"/>
+                        <!-- Cinza claro -->
+                    </Style>
+                </TreeView.ItemContainerStyle>
+                <!-- Aqui vamos adicionar os itens da árvore -->
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Items}">
+                        <TextBlock Text="{Binding Name}" Foreground="#CCCCCC"/>
+                        <!-- Cinza claro -->
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+        </Border>
+        <Border Grid.Column="0" Background="Gray" Margin="10,68,10,10" CornerRadius="10">
+            <TreeView x:Name="FileTreeView3" FontSize="15" FontFamily="Consolas" Margin="10"
+                ScrollViewer.VerticalScrollBarVisibility="Hidden" 
+                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                Foreground="#CCCCCC">
+                <TreeView.Style>
+                    <Style TargetType="{x:Type TreeView}">
+                        <Setter Property="BorderBrush" Value="Gray"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="Background" Value="Gray"/>
+                    </Style>
+                </TreeView.Style>
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="{x:Type TreeViewItem}">
+                        <Setter Property="Foreground" Value="#CCCCCC"/>
+                        <!-- Cinza claro -->
+                    </Style>
+                </TreeView.ItemContainerStyle>
+                <!-- Aqui vamos adicionar os itens da árvore -->
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Items}">
+                        <TextBlock Text="{Binding Name}" Foreground="#CCCCCC"/>
+                        <!-- Cinza claro -->
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+        </Border>
+        <Border Grid.Column="1" Background="Gray" Margin="30,465,30,21" CornerRadius="10">
+           
+        </Border>
+
+
 
     </Grid>
 </Window>

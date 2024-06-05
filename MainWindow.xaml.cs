@@ -8,6 +8,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using ICSharpCode.AvalonEdit;
 using System.Windows.Forms; // Added this line at the top of the file
+using System.Windows;
+using System.Windows.Forms.Integration;
 
 using WpfButton = System.Windows.Controls.Button;
 using FormsButton = System.Windows.Forms.Button;
@@ -23,11 +25,21 @@ using System.Windows.Documents;
 using System.Text;
 using System.Windows.Media.Animation;
 using System.Windows.Interop;
+using System.Diagnostics;
+
 
 namespace Sapho_IDE_New
 {
     public partial class MainWindow : Window
     {
+        public MainWindow()
+        {
+            InitializeComponent();
+            List<string> initialFilesAndFolders = new List<string>(); // Crie uma lista vazia
+            LoadFileTree(initialFilesAndFolders); // Passe a lista vazia para o método LoadFileTree
+            LoadOpenedFiles();
+        }
+
 
         private bool isLightTheme = true;
 
@@ -37,30 +49,22 @@ namespace Sapho_IDE_New
             {
                 // Alterar para o tema escuro
                 Resources.MergedDictionaries.Clear();
-                Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new System.Uri("DarkTheme.xaml", System.UriKind.Relative) });
+                Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new System.Uri("LightTheme.xaml", System.UriKind.Relative) });
                 isLightTheme = false;
             }
             else
             {
                 // Alterar para o tema claro
                 Resources.MergedDictionaries.Clear();
-                Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new System.Uri("LightTheme.xaml", System.UriKind.Relative) });
+                Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new System.Uri("DarkTheme.xaml", System.UriKind.Relative) });
                 isLightTheme = true;
             }
         }
 
 
+
         private List<string> openedFilePaths = new List<string>();
         private Dictionary<TextEditor, Stack<string>> undoHistory = new Dictionary<TextEditor, Stack<string>>();
-
-        public MainWindow()
-        {
-            InitializeComponent();
-            List<string> initialFilesAndFolders = new List<string>(); // Crie uma lista vazia
-            LoadFileTree(initialFilesAndFolders); // Passe a lista vazia para o método LoadFileTree
-            LoadOpenedFiles();
-        }
-
 
         private void LoadFileTree(List<string> filesAndFolders)
         {

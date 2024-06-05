@@ -10,6 +10,7 @@
         "dependencies": {
           "AvalonEdit": "6.3.0.90",
           "BotTimeICSharpCode.AvalonEdit": "1.0.2",
+          "ConEmu.Core": "23.7.24",
           "DevExpressMvvm": "23.2.3",
           "Dragablz": "0.0.3.234",
           "FCTB": "2.16.24",
@@ -18,6 +19,7 @@
           "MaterialDesignThemes": "5.0.0",
           "Newtonsoft.Json": "13.0.3",
           "PresentationFramework.Aero2": "1.0.1",
+          "Terminal.Gui": "1.17.0",
           "WindowsAPICodePack": "7.0.4",
           "WindowsAPICodePack-Shell": "1.1.1"
         },
@@ -61,6 +63,7 @@
           }
         }
       },
+      "ConEmu.Core/23.7.24": {},
       "ControlzEx/4.4.0": {
         "dependencies": {
           "Microsoft.Xaml.Behaviors.Wpf": "1.1.39",
@@ -291,6 +294,17 @@
           }
         }
       },
+      "NStack.Core/1.1.1": {
+        "dependencies": {
+          "System.ValueTuple": "4.5.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/NStack.dll": {
+            "assemblyVersion": "1.1.1.0",
+            "fileVersion": "1.1.1.0"
+          }
+        }
+      },
       "PresentationFramework.Aero2/1.0.1": {},
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
       "runtime.fedora.23-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
@@ -334,6 +348,7 @@
       "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
       "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
       "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
+      "System.CodeDom/8.0.0": {},
       "System.Collections/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "7.0.0",
@@ -436,6 +451,25 @@
           "System.Resources.ResourceManager": "4.3.0",
           "System.Runtime": "4.3.0",
           "System.Runtime.Extensions": "4.3.0"
+        }
+      },
+      "System.Management/8.0.0": {
+        "dependencies": {
+          "System.CodeDom": "8.0.0"
+        },
+        "runtime": {
+          "lib/net8.0/System.Management.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.53103"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/net8.0/System.Management.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.53103"
+          }
         }
       },
       "System.Net.Http/4.3.4": {
@@ -683,6 +717,30 @@
           "System.Runtime": "4.3.0"
         }
       },
+      "System.ValueTuple/4.5.0": {},
+      "Terminal.Gui/1.17.0": {
+        "dependencies": {
+          "NStack.Core": "1.1.1",
+          "System.Management": "8.0.0"
+        },
+        "runtime": {
+          "lib/net8.0/Terminal.Gui.dll": {
+            "assemblyVersion": "1.17.0.0",
+            "fileVersion": "1.17.0.0"
+          }
+        },
+        "resources": {
+          "lib/net8.0/fr-FR/Terminal.Gui.resources.dll": {
+            "locale": "fr-FR"
+          },
+          "lib/net8.0/ja-JP/Terminal.Gui.resources.dll": {
+            "locale": "ja-JP"
+          },
+          "lib/net8.0/pt-PT/Terminal.Gui.resources.dll": {
+            "locale": "pt-PT"
+          }
+        }
+      },
       "WindowsAPICodePack/7.0.4": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "7.0.0",
@@ -745,6 +803,13 @@
       "sha512": "sha512-BY9FSQ9vo/25Ow+cOlK9fwF2ufKIiEvkjYlZs803GKqYNKROJQuHfD3aq9Mu6oZvydpP0TqHhZn/cSc1N1M92Q==",
       "path": "bottimeicsharpcode.avalonedit/1.0.2",
       "hashPath": "bottimeicsharpcode.avalonedit.1.0.2.nupkg.sha512"
+    },
+    "ConEmu.Core/23.7.24": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-QlDxN+7gF21pC/t/mtYSRK28mMW52bV0ixklNWX3HzeCGmJwmFZ2iEuMT8NdGX8LoorspvjvUjkH+evz1VnZRA==",
+      "path": "conemu.core/23.7.24",
+      "hashPath": "conemu.core.23.7.24.nupkg.sha512"
     },
     "ControlzEx/4.4.0": {
       "type": "package",
@@ -829,6 +894,13 @@
       "sha512": "sha512-HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ==",
       "path": "newtonsoft.json/13.0.3",
       "hashPath": "newtonsoft.json.13.0.3.nupkg.sha512"
+    },
+    "NStack.Core/1.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-5LhlYsmAe3A55zl8xCSD7AbuhDqZODpsfdMGgtygeBlHZmlb0tHmK5/PeKODnwYUhC6EbL2qHKGskPNvpY+z3w==",
+      "path": "nstack.core/1.1.1",
+      "hashPath": "nstack.core.1.1.1.nupkg.sha512"
     },
     "PresentationFramework.Aero2/1.0.1": {
       "type": "package",
@@ -942,6 +1014,13 @@
       "path": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl/4.3.2",
       "hashPath": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512"
     },
+    "System.CodeDom/8.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-WTlRjL6KWIMr/pAaq3rYqh0TJlzpouaQ/W1eelssHgtlwHAH25jXTkUphTYx9HaIIf7XA6qs/0+YhtLEQRkJ+Q==",
+      "path": "system.codedom/8.0.0",
+      "hashPath": "system.codedom.8.0.0.nupkg.sha512"
+    },
     "System.Collections/4.3.0": {
       "type": "package",
       "serviceable": true,
@@ -1025,6 +1104,13 @@
       "sha512": "sha512-5DbqIUpsDp0dFftytzuMmc0oeMdQwjcP/EWxsksIz/w1TcFRkZ3yKKz0PqiYFMmEwPSWw+qNVqD7PJ889JzHbw==",
       "path": "system.linq/4.3.0",
       "hashPath": "system.linq.4.3.0.nupkg.sha512"
+    },
+    "System.Management/8.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-jrK22i5LRzxZCfGb+tGmke2VH7oE0DvcDlJ1HAKYU8cPmD8XnpUT0bYn2Gy98GEhGjtfbR/sxKTVb+dE770pfA==",
+      "path": "system.management/8.0.0",
+      "hashPath": "system.management.8.0.0.nupkg.sha512"
     },
     "System.Net.Http/4.3.4": {
       "type": "package",
@@ -1172,6 +1258,20 @@
       "sha512": "sha512-LbSxKEdOUhVe8BezB/9uOGGppt+nZf6e1VFyw6v3DN6lqitm0OSn2uXMOdtP0M3W4iMcqcivm2J6UgqiwwnXiA==",
       "path": "system.threading.tasks/4.3.0",
       "hashPath": "system.threading.tasks.4.3.0.nupkg.sha512"
+    },
+    "System.ValueTuple/4.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-okurQJO6NRE/apDIP23ajJ0hpiNmJ+f0BwOlB/cSqTLQlw5upkf+5+96+iG2Jw40G1fCVCyPz/FhIABUjMR+RQ==",
+      "path": "system.valuetuple/4.5.0",
+      "hashPath": "system.valuetuple.4.5.0.nupkg.sha512"
+    },
+    "Terminal.Gui/1.17.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-EkFDIpkFuWV/TVW2ZX2SKnctZ/GIhpLQfyLAQ/UW076AwxX5vI6w8RhznH1+/33h+o9Jyw+JSo5u6t71WuZMiQ==",
+      "path": "terminal.gui/1.17.0",
+      "hashPath": "terminal.gui.1.17.0.nupkg.sha512"
     },
     "WindowsAPICodePack/7.0.4": {
       "type": "package",

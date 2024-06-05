@@ -7,22 +7,8 @@
       "RelativeMoniker": "D:0:0:{5B21C8B0-2E95-4E62-9EE4-F417916B6917}|Sapho_IDE_New.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5B21C8B0-2E95-4E62-9EE4-F417916B6917}|Sapho_IDE_New.csproj|c:\\users\\lcom\\desktop\\github\\saphoide\\darktheme.xaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{5B21C8B0-2E95-4E62-9EE4-F417916B6917}|Sapho_IDE_New.csproj|solutionrelative:darktheme.xaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\LCOM\\AppData\\Local\\Temp\\.vsdbgsrc\\c4c7486349f2e19edb27a25a2f4aec6ed42ceeb0b429babe26b9b3b3e7851ec2\\Storyboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{5B21C8B0-2E95-4E62-9EE4-F417916B6917}|Sapho_IDE_New.csproj|c:\\users\\lcom\\desktop\\github\\saphoide\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5B21C8B0-2E95-4E62-9EE4-F417916B6917}|Sapho_IDE_New.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5B21C8B0-2E95-4E62-9EE4-F417916B6917}|Sapho_IDE_New.csproj|c:\\users\\lcom\\desktop\\github\\saphoide\\darktheme.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{5B21C8B0-2E95-4E62-9EE4-F417916B6917}|Sapho_IDE_New.csproj|solutionrelative:darktheme.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\LCOM\\AppData\\Local\\Temp\\.vsdbgsrc\\91232998b17d46a706e873eb81abf19a9d0ad80fdc20ce143399bcc63fc2aa90\\Window.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -32,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -41,57 +27,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Storyboard.cs",
-              "DocumentMoniker": "C:\\Users\\LCOM\\AppData\\Local\\Temp\\.vsdbgsrc\\c4c7486349f2e19edb27a25a2f4aec6ed42ceeb0b429babe26b9b3b3e7851ec2\\Storyboard.cs",
-              "RelativeDocumentMoniker": "..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\c4c7486349f2e19edb27a25a2f4aec6ed42ceeb0b429babe26b9b3b3e7851ec2\\Storyboard.cs",
-              "ToolTip": "C:\\Users\\LCOM\\AppData\\Local\\Temp\\.vsdbgsrc\\c4c7486349f2e19edb27a25a2f4aec6ed42ceeb0b429babe26b9b3b3e7851ec2\\Storyboard.cs [Somente Leitura]",
-              "RelativeToolTip": "..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\c4c7486349f2e19edb27a25a2f4aec6ed42ceeb0b429babe26b9b3b3e7851ec2\\Storyboard.cs [Somente Leitura]",
-              "ViewState": "AQIAAHEBAAAAAAAAAAAMwIYBAAADAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-05T13:56:32.359Z",
-              "EditorCaption": " [Somente Leitura]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "DarkTheme.xaml",
-              "DocumentMoniker": "C:\\Users\\LCOM\\Desktop\\Github\\saphoIDE\\DarkTheme.xaml",
-              "RelativeDocumentMoniker": "DarkTheme.xaml",
-              "ToolTip": "C:\\Users\\LCOM\\Desktop\\Github\\saphoIDE\\DarkTheme.xaml",
-              "RelativeToolTip": "DarkTheme.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-06-05T13:08:29.681Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "DarkTheme.xaml",
-              "DocumentMoniker": "C:\\Users\\LCOM\\Desktop\\Github\\saphoIDE\\DarkTheme.xaml",
-              "RelativeDocumentMoniker": "DarkTheme.xaml",
-              "ToolTip": "C:\\Users\\LCOM\\Desktop\\Github\\saphoIDE\\DarkTheme.xaml",
-              "RelativeToolTip": "DarkTheme.xaml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-06-05T13:08:24.574Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Window.cs",
-              "DocumentMoniker": "C:\\Users\\LCOM\\AppData\\Local\\Temp\\.vsdbgsrc\\91232998b17d46a706e873eb81abf19a9d0ad80fdc20ce143399bcc63fc2aa90\\Window.cs",
-              "RelativeDocumentMoniker": "..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\91232998b17d46a706e873eb81abf19a9d0ad80fdc20ce143399bcc63fc2aa90\\Window.cs",
-              "ToolTip": "C:\\Users\\LCOM\\AppData\\Local\\Temp\\.vsdbgsrc\\91232998b17d46a706e873eb81abf19a9d0ad80fdc20ce143399bcc63fc2aa90\\Window.cs [Somente Leitura]",
-              "RelativeToolTip": "..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\91232998b17d46a706e873eb81abf19a9d0ad80fdc20ce143399bcc63fc2aa90\\Window.cs [Somente Leitura]",
-              "ViewState": "AQIAAOURAAAAAAAAAAAAwPgRAAADAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-05T13:07:16.379Z",
-              "EditorCaption": " [Somente Leitura]"
             },
             {
               "$type": "Document",
@@ -107,15 +42,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\LCOM\\Desktop\\Github\\saphoIDE\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "MainWindow.xaml.cs",
               "ToolTip": "C:\\Users\\LCOM\\Desktop\\Github\\saphoIDE\\MainWindow.xaml.cs",
               "RelativeToolTip": "MainWindow.xaml.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAiwDIAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAYwAsAAAAnAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-05T12:36:58.126Z",
+              "WhenOpened": "2024-06-05T15:47:03.744Z",
               "EditorCaption": ""
             }
           ]

@@ -21,24 +21,32 @@ using WpfKeyEventArgs = System.Windows.Input.KeyEventArgs;
 using FormsKeyEventArgs = System.Windows.Forms.KeyEventArgs;
 using System.Windows.Documents;
 using System.Text;
+using System.Windows.Media.Animation;
+using System.Windows.Interop;
 
 namespace Sapho_IDE_New
 {
     public partial class MainWindow : Window
     {
 
-        private void LightThemeButton_Click(object sender, RoutedEventArgs e)
-        {
-            // Alterar para o tema claro
-            Resources.MergedDictionaries.Clear();
-            Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new System.Uri("LightTheme.xaml", System.UriKind.Relative) });
-        }
+        private bool isLightTheme = true;
 
-        private void DarkThemeButton_Click(object sender, RoutedEventArgs e)
+        private void ThemeToggleButton_Click(object sender, RoutedEventArgs e)
         {
-            // Alterar para o tema escuro
-            Resources.MergedDictionaries.Clear();
-            Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new System.Uri("DarkTheme.xaml", System.UriKind.Relative) });
+            if (isLightTheme)
+            {
+                // Alterar para o tema escuro
+                Resources.MergedDictionaries.Clear();
+                Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new System.Uri("DarkTheme.xaml", System.UriKind.Relative) });
+                isLightTheme = false;
+            }
+            else
+            {
+                // Alterar para o tema claro
+                Resources.MergedDictionaries.Clear();
+                Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new System.Uri("LightTheme.xaml", System.UriKind.Relative) });
+                isLightTheme = true;
+            }
         }
 
 

@@ -227,6 +227,11 @@
             <ColumnDefinition Width="8*"/>
         </Grid.ColumnDefinitions>
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="0*"/>
+        </Grid.RowDefinitions>
+
         <!-- Barra de Título Customizada -->
         <Border Background="#333333" Height="48" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="10,0,10,0" CornerRadius="5" Panel.ZIndex="2">
             <DockPanel LastChildFill="True">
@@ -315,7 +320,7 @@
         <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Left" ResizeDirection="Columns" Margin="0,68,0,10" Background="AliceBlue"/>
 
         <!-- Dragablz.TabablzControl para as guias -->
-        <dragablz:TabablzControl x:Name="FileTabControl" Grid.Column="1" Margin="10,68,10,216" BorderThickness="0">
+        <dragablz:TabablzControl x:Name="FileTabControl" Grid.Column="1" Margin="10,68,10,174" BorderThickness="0">
             <!-- As abas serão adicionadas dinamicamente no código-behind -->
         </dragablz:TabablzControl>
         <Border Grid.Column="0" Background="Gray" Margin="10,68,10,10" CornerRadius="10">
@@ -399,17 +404,15 @@
                 </TreeView.ItemTemplate>
             </TreeView>
         </Border>
-        <GridSplitter Width="620" Height="5" ResizeDirection="Rows" Margin="20,393,0,176" Background="AliceBlue" HorizontalAlignment="Left" Grid.Column="1"/>
-        <Border Background="Black" CornerRadius="10" Grid.Column="1" Margin="16,402,10,21">
 
-            <Grid Margin="0,0,0,10">
-                <avalonEdit:TextEditor x:Name="Terminal" Margin="10,10,10,0"/>
-            </Grid>
+        <!-- Painel para o terminal e editor de texto -->
+        <Grid Grid.Column="1" Margin="10,68,10,10">
+            <!-- Área do editor de texto -->
 
-        </Border>
-
-
-
-
+            <!-- Painel para o terminal -->
+            <Border Background="Black" CornerRadius="10" Margin="0,341,0,0">
+                <avalonEdit:TextEditor x:Name="Terminal" Margin="10,10,10,10"/>
+            </Border>
+        </Grid>
     </Grid>
 </mah:MetroWindow>

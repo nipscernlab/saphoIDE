@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="CSharp.xshd" />
+    <None Remove="CMM.xshd" />
     <None Remove="Icons\1498583471_kcmprocessor.ico" />
     <None Remove="Icons\icon-sapho.ico" />
   </ItemGroup>
@@ -20,9 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="CSharp.xshd">
+    <Content Include="CMM.xshd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
     <Resource Include="Icons\icon-sapho.ico">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>

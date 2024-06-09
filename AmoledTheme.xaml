@@ -1,0 +1,32 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Amoled theme specific resources -->
+
+    <Color x:Key="WindowBackgroundColor">#000000</Color>
+    <Color x:Key="ForegroundColor">#FFFFFF</Color>
+    <Color x:Key="ButtonBackgroundColor">#222222</Color>
+    <Color x:Key="ButtonMouseOverColor">#444444</Color>
+    <Color x:Key="TextEditorBackgroundColor">#000000</Color>
+    <Color x:Key="TextEditorForegroundColor">#FFFFFF</Color>
+    <Color x:Key="BorderBackgroundColor">#FFFFFF</Color>
+    <Color x:Key="PackIconColor">Purple</Color>
+    <Color x:Key="PackIconColorSpecial">Goldenrod</Color>
+
+    <Color x:Key="TabablzControlBorderColor">Goldenrod</Color>
+    <SolidColorBrush x:Key="TabablzControlBorderBrush" Color="{StaticResource TabablzControlBorderColor}" />
+
+
+
+
+    <SolidColorBrush x:Key="PackIconBrush" Color="{StaticResource PackIconColor}" />
+    <SolidColorBrush x:Key="PackIconBrushSpecial" Color="{StaticResource PackIconColorSpecial}" />
+    <SolidColorBrush x:Key="WindowBackgroundBrush" Color="{StaticResource WindowBackgroundColor}" />
+    <SolidColorBrush x:Key="ForegroundBrush" Color="{StaticResource ForegroundColor}" />
+    <SolidColorBrush x:Key="ButtonBackgroundBrush" Color="{StaticResource ButtonBackgroundColor}" />
+    <SolidColorBrush x:Key="ButtonMouseOverBrush" Color="{StaticResource ButtonMouseOverColor}" />
+    <SolidColorBrush x:Key="TextEditorBackgroundBrush" Color="{StaticResource TextEditorBackgroundColor}" />
+    <SolidColorBrush x:Key="TextEditorForegroundBrush" Color="{StaticResource TextEditorForegroundColor}" />
+    <SolidColorBrush x:Key="BorderBackgroundBrush" Color="{StaticResource BorderBackgroundColor}" />
+
+</ResourceDictionary>

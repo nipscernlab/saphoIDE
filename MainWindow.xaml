@@ -8,15 +8,14 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:Sapho_IDE_New"
-        KeyDown="Window_KeyDown"
+        
         xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
         mc:Ignorable="d"
         Title="SAPHO IDE" MinWidth="800" MinHeight="600"
         Icon="pack://application:,,,/Icons/1498583471_kcmprocessor.ico" Height="20" Width="20"
         AllowsTransparency="false"
-                 
-                 BorderThickness="0"
-                      GlowBrush="Black">
+        BorderThickness="0"
+        GlowBrush="Black">
 
     <Window.Background>
         <SolidColorBrush Color="{DynamicResource WindowBackgroundColor}" />
@@ -24,12 +23,13 @@
 
     <Window.Resources>
 
-        <!-- Inclua os temas -->
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="CommonTheme.xaml" />
                 <ResourceDictionary Source="LightTheme.xaml" />
                 <ResourceDictionary Source="DarkTheme.xaml" />
+                <ResourceDictionary Source="PurpleTheme.xaml" />
+                <ResourceDictionary Source="AmoledTheme.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <Style x:Key="CustomMaterialDesignButtonStyle" TargetType="{x:Type Button}">
@@ -41,15 +41,14 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Border x:Name="Border" Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="5">
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="5" >
                                 <Grid>
                                     <ContentPresenter Content="{TemplateBinding Content}"
-                                          HorizontalAlignment="Center"
-                                          VerticalAlignment="Center"
-                                          Margin="{TemplateBinding Padding}"/>
-                                    <!-- Aqui você pode adicionar um ícone, se necessário -->
+                                                      HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"
+                                                      Margin="{TemplateBinding Padding}"/>
                                 </Grid>
                             </Border>
                             <ControlTemplate.Triggers>
@@ -63,38 +62,6 @@
                 </Setter>
             </Style>
 
-            <Style x:Key="CustomDesignToolButtonStyle" TargetType="{x:Type Button}">
-                <Setter Property="Foreground" Value="White"/>
-                <Setter Property="Background" Value="Transparent"/>
-                <Setter Property="BorderBrush" Value="Transparent"/>
-                <Setter Property="FontSize" Value="16"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Border x:Name="Border" Background="{TemplateBinding Background}"
-            BorderBrush="{TemplateBinding BorderBrush}"
-            BorderThickness="{TemplateBinding BorderThickness}"
-            CornerRadius="5">
-                                <Grid>
-                                    <ContentPresenter Content="{TemplateBinding Content}"
-                              HorizontalAlignment="Center"
-                              VerticalAlignment="Center"
-                              Margin="{TemplateBinding Padding}"/>
-                                    <!-- Aqui você pode adicionar um ícone, se necessário -->
-                                </Grid>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="Border" Property="Background" Value="#555555"/>
-                                    <Setter Property="Foreground" Value="White"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-
-            <!-- Estilo personalizado para o menu suspenso -->
             <Style x:Key="ContextMenuStyle" TargetType="{x:Type ContextMenu}">
                 <Setter Property="Background" Value="#333333"/>
                 <Setter Property="Foreground" Value="White"/>
@@ -114,7 +81,7 @@
                             <Setter Property="FontSize" Value="16"/>
                             <Setter Property="Template">
                                 <Setter.Value>
-                                    <ControlTemplate TargetType="{x:Type MenuItem}">
+                                    <ControlTemplate TargetType="MenuItem">
                                         <Border x:Name="Border" Background="{TemplateBinding Background}"
                                                 BorderBrush="{TemplateBinding BorderBrush}"
                                                 BorderThickness="{TemplateBinding BorderThickness}"
@@ -145,7 +112,6 @@
                         </Style>
                     </Setter.Value>
                 </Setter>
-                <!-- Definir o estilo personalizado para o ScrollViewer -->
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type ContextMenu}">
@@ -166,17 +132,17 @@
             </Style>
 
             <ContextMenu x:Key="FileMenu" Style="{StaticResource ContextMenuStyle}" StaysOpen="False">
-                <MenuItem Header="New Project" Click="OpenNewProject_Click">
+                <MenuItem Header="New Project">
                     <MenuItem.Icon>
                         <Image Source="Icons/icon-sapho.ico" Width="24" Height="24"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Open Project" Click="OpenFileMenu_Click">
+                <MenuItem Header="Open Project">
                     <MenuItem.Icon>
                         <Image Source="Icons/icon-sapho.ico" Width="24" Height="24"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Open Folder" Click="OpenFolderMenu_Click">
+                <MenuItem Header="Open Folder">
                     <MenuItem.Icon>
                         <Image Source="Icons/icon-sapho.ico" Width="24" Height="24"/>
                     </MenuItem.Icon>
@@ -191,20 +157,18 @@
                         <Image Source="Icons/icon-sapho.ico" Width="24" Height="24"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Exit Alt+F4" Click="Exit_Click">
+                <MenuItem Header="Exit Alt+F4">
                     <MenuItem.Icon>
                         <Image Source="Icons/icon-sapho.ico" Width="24" Height="24"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </ContextMenu>
 
-            <!-- Menu suspenso para o botão "Help" -->
             <ContextMenu x:Key="HelpMenu" Style="{StaticResource ContextMenuStyle}" StaysOpen="False">
                 <MenuItem Header="About"/>
                 <MenuItem Header="Documentation"/>
                 <MenuItem Header="Support"/>
             </ContextMenu>
-
 
             <ContextMenu x:Key="ToyBrickContextMenu" Style="{StaticResource ContextMenuStyle}" StaysOpen="False">
                 <MenuItem Header="Substituir Ícone">
@@ -214,205 +178,166 @@
                     <MenuItem Header="ToyBrick" />
                 </MenuItem>
             </ContextMenu>
-
-
-
         </ResourceDictionary>
-
     </Window.Resources>
 
     <Grid Margin="0,10,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="8*"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="0*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <!-- Barra de Título Customizada -->
-        <Border Background="#333333" Height="48" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="10,0,10,0" CornerRadius="5" Panel.ZIndex="2">
+        <Border Background="{DynamicResource BorderBackgroundBrush}" Height="48" VerticalAlignment="Top" Grid.ColumnSpan="3" Margin="10,0,10,0" CornerRadius="5" Panel.ZIndex="2">
             <DockPanel LastChildFill="True">
-
-                <StackPanel Orientation="Horizontal" Width="310">
-                    <Button Style="{StaticResource CustomMaterialDesignButtonStyle}" FontSize="16" VerticalAlignment="Center" Margin="5" Height="40" Width="90" Click="OpenFileMenu">
-
+                <StackPanel Orientation="Horizontal" Width="406">
+                    <Button Style="{StaticResource CustomMaterialDesignButtonStyle}" FontSize="16" VerticalAlignment="Center" Margin="5" Height="40" Width="90">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <materialDesign:PackIcon Foreground="Gray" Kind="File" Height="25" Width="25" />
+                            <materialDesign:PackIcon Foreground="{StaticResource PackIconBrush}" Kind="File" Height="25" Width="25" />
                             <TextBlock x:Name="FileTextBlock" Text="File" VerticalAlignment="Center" Margin="5,0,0,0"/>
                         </StackPanel>
                     </Button>
 
-                    <Button Style="{StaticResource CustomMaterialDesignButtonStyle}" FontSize="16" VerticalAlignment="Center" Margin="5" Height="40" Width="90" Click="OpenHelpMenu">
-
+                    <Button Style="{StaticResource CustomMaterialDesignButtonStyle}" FontSize="16" VerticalAlignment="Center" Margin="5" Height="40" Width="90">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <materialDesign:PackIcon Foreground="Gray" Kind="HelpBox" Height="25" Width="25" />
+                            <materialDesign:PackIcon Foreground="{StaticResource PackIconBrush}" Kind="ViewList" Height="25" Width="25" />
+                            <TextBlock Text="View" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{StaticResource CustomMaterialDesignButtonStyle}" FontSize="16" VerticalAlignment="Center" Margin="5" Height="40" Width="90">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <materialDesign:PackIcon Foreground="{StaticResource PackIconBrush}" Kind="HelpCircleOutline" Height="25" Width="25" />
                             <TextBlock Text="Help" VerticalAlignment="Center" Margin="5,0,0,0"/>
                         </StackPanel>
                     </Button>
-
-                </StackPanel>
-
-
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button Style="{StaticResource CustomMaterialDesignButtonStyle}" Width="40" Height="40" Margin="5">
-                        <materialDesign:PackIcon VerticalAlignment="Center" Foreground="Goldenrod" Kind="ArrowLeftThick" Height="25" Width="30" />
-                    </Button>
-                    <Button Style="{StaticResource CustomMaterialDesignButtonStyle}" Width="40" Height="40" Margin="5">
-                        <materialDesign:PackIcon VerticalAlignment="Center" Foreground="Goldenrod" Kind="ArrowRightThick" Height="25" Width="30" />
-                    </Button>
-                    <Button Style="{StaticResource CustomMaterialDesignButtonStyle}" Width="40" Height="40" Margin="5">
-                        <materialDesign:PackIcon VerticalAlignment="Center" Foreground="Goldenrod" Kind="Wrench" Height="25" Width="30" />
-                    </Button>
-                    <Button x:Name="ToyBrickButton" Style="{StaticResource CustomMaterialDesignButtonStyle}" Width="40" Height="40" Margin="5" ContextMenu="{StaticResource ToyBrickContextMenu}">
-                        <materialDesign:PackIcon x:Name="toyBrickIcon" VerticalAlignment="Center" Foreground="Goldenrod" Kind="ToyBrick" Height="25" Width="30"/>
-                    </Button>
-                    <Button Style="{StaticResource CustomMaterialDesignButtonStyle}" Width="40" Height="40" Margin="5">
-                        <materialDesign:PackIcon VerticalAlignment="Center" Foreground="Goldenrod" Kind="Memory" Height="32" Width="32" />
-                    </Button>
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Style="{StaticResource CustomMaterialDesignButtonStyle}" FontSize="16" VerticalAlignment="Center" Margin="5" Height="40" Width="110" Click="ThemeToggleButton_Click">
-
+                    <Button Style="{StaticResource CustomMaterialDesignButtonStyle}" FontSize="16" VerticalAlignment="Center" Margin="5" Height="40" Width="90" Click="ThemeToggleButton_Click">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <materialDesign:PackIcon Foreground="Gray" VerticalAlignment="Center" Kind="ThemeLightDark" Height="25" Width="25" />
+                            <materialDesign:PackIcon Foreground="{StaticResource PackIconBrush}" Kind="ThemeLightDark" Height="25" Width="25" />
                             <TextBlock Text="Theme" VerticalAlignment="Center" Margin="5,0,0,0"/>
                         </StackPanel>
                     </Button>
-                </StackPanel>
 
+                </StackPanel>
             </DockPanel>
         </Border>
 
-        <!-- Retângulo na vertical no lado esquerdo -->
-        <Border Grid.Column="0" Background="Gray" Margin="10,68,10,10" CornerRadius="10">
-            <TreeView x:Name="FileTreeView" FontSize="15" FontFamily="Consolas" Margin="10"
-                      ScrollViewer.VerticalScrollBarVisibility="Hidden" 
-                      ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                      Foreground="#CCCCCC">
-                <TreeView.Style>
-                    <Style TargetType="{x:Type TreeView}">
-                        <Setter Property="BorderBrush" Value="Gray"/>
-                        <Setter Property="BorderThickness" Value="1"/>
-                        <Setter Property="Background" Value="Gray"/>
-                    </Style>
-                </TreeView.Style>
-                <TreeView.ItemContainerStyle>
-                    <Style TargetType="{x:Type TreeViewItem}">
-                        <Setter Property="Foreground" Value="#CCCCCC"/>
-                        <!-- Cinza claro -->
-                    </Style>
-                </TreeView.ItemContainerStyle>
-                <!-- Aqui vamos adicionar os itens da árvore -->
-                <TreeView.ItemTemplate>
-                    <HierarchicalDataTemplate ItemsSource="{Binding Items}">
-                        <TextBlock Text="{Binding Name}" Foreground="#CCCCCC"/>
-                        <!-- Cinza claro -->
-                    </HierarchicalDataTemplate>
-                </TreeView.ItemTemplate>
-            </TreeView>
-        </Border>
+        <!-- Menu à esquerda -->
+        <StackPanel Margin="10,53,0,54" HorizontalAlignment="Left">
+            <ListBox>
+                <ListBoxItem>
+                    <Button Style="{StaticResource CustomMaterialDesignButtonStyle}" ContextMenu="{StaticResource ToyBrickContextMenu}">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <materialDesign:PackIcon Foreground="{StaticResource PackIconBrushSpecial}" Kind="ToyBrick" Height="25" Width="30"/>
+                            <TextBlock Text="Build" VerticalAlignment="Center" Foreground="Gray" Margin="5,0,5,0"/>
+                        </StackPanel>
+                    </Button>
+                </ListBoxItem>
+                <ListBoxItem>
+                    <Button Style="{StaticResource CustomMaterialDesignButtonStyle}" Margin="5">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <materialDesign:PackIcon Foreground="{StaticResource PackIconBrush}" Kind="Xml" Height="25" Width="30"/>
+                            <TextBlock Text="XML" VerticalAlignment="Center" Foreground="Gray" Margin="5,0,5,0"/>
+                        </StackPanel>
+                    </Button>
+                </ListBoxItem>
+                <ListBoxItem>
+                    <Button Style="{StaticResource CustomMaterialDesignButtonStyle}" Margin="5">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <materialDesign:PackIcon Foreground="{StaticResource PackIconBrush}" Kind="Database" Height="25" Width="30"/>
+                            <TextBlock Text="Database" VerticalAlignment="Center" Foreground="Gray" Margin="5,0,5,0"/>
+                        </StackPanel>
+                    </Button>
+                </ListBoxItem>
+                <ListBoxItem>
+                    <Button Style="{StaticResource CustomMaterialDesignButtonStyle}" Margin="5">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <materialDesign:PackIcon Foreground="{StaticResource PackIconBrush}" Kind="FileCodeOutline" Height="25" Width="30"/>
+                            <TextBlock Text="Code" VerticalAlignment="Center" Foreground="Gray" Margin="5,0,5,0"/>
+                        </StackPanel>
+                    </Button>
+                </ListBoxItem>
+            </ListBox>
+        </StackPanel>
 
-        <!-- Painel redimensionável -->
-        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Left" ResizeDirection="Columns" Margin="0,68,0,10" Background="AliceBlue"/>
+        <!-- Aba central -->
+        <Grid Grid.Column="2" Grid.Row="1" Margin="0,10,10,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="8*"/>
+                <RowDefinition Height="Auto" MinHeight="5"/>
+                <RowDefinition Height="155*"/>
+            </Grid.RowDefinitions>
 
-        <!-- Dragablz.TabablzControl para as guias -->
-        <dragablz:TabablzControl x:Name="FileTabControl" Grid.Column="1" Margin="10,68,10,174" BorderThickness="0">
-            <!-- As abas serão adicionadas dinamicamente no código-behind -->
-        </dragablz:TabablzControl>
-        <Border Grid.Column="0" Background="Gray" Margin="10,68,10,10" CornerRadius="10">
-            <TreeView x:Name="FileTreeView1" FontSize="15" FontFamily="Consolas" Margin="10"
-                ScrollViewer.VerticalScrollBarVisibility="Hidden" 
-                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                Foreground="#CCCCCC">
-                <TreeView.Style>
-                    <Style TargetType="{x:Type TreeView}">
-                        <Setter Property="BorderBrush" Value="Gray"/>
-                        <Setter Property="BorderThickness" Value="1"/>
-                        <Setter Property="Background" Value="Gray"/>
-                    </Style>
-                </TreeView.Style>
-                <TreeView.ItemContainerStyle>
-                    <Style TargetType="{x:Type TreeViewItem}">
-                        <Setter Property="Foreground" Value="#CCCCCC"/>
-                        <!-- Cinza claro -->
-                    </Style>
-                </TreeView.ItemContainerStyle>
-                <!-- Aqui vamos adicionar os itens da árvore -->
-                <TreeView.ItemTemplate>
-                    <HierarchicalDataTemplate ItemsSource="{Binding Items}">
-                        <TextBlock Text="{Binding Name}" Foreground="#CCCCCC"/>
-                        <!-- Cinza claro -->
-                    </HierarchicalDataTemplate>
-                </TreeView.ItemTemplate>
-            </TreeView>
-        </Border>
-        <Border Grid.Column="0" Background="Gray" Margin="10,68,10,10" CornerRadius="10">
-            <TreeView x:Name="FileTreeView2" FontSize="15" FontFamily="Consolas" Margin="10"
-                ScrollViewer.VerticalScrollBarVisibility="Hidden" 
-                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                Foreground="#CCCCCC">
-                <TreeView.Style>
-                    <Style TargetType="{x:Type TreeView}">
-                        <Setter Property="BorderBrush" Value="Gray"/>
-                        <Setter Property="BorderThickness" Value="1"/>
-                        <Setter Property="Background" Value="Gray"/>
-                    </Style>
-                </TreeView.Style>
-                <TreeView.ItemContainerStyle>
-                    <Style TargetType="{x:Type TreeViewItem}">
-                        <Setter Property="Foreground" Value="#CCCCCC"/>
-                        <!-- Cinza claro -->
-                    </Style>
-                </TreeView.ItemContainerStyle>
-                <!-- Aqui vamos adicionar os itens da árvore -->
-                <TreeView.ItemTemplate>
-                    <HierarchicalDataTemplate ItemsSource="{Binding Items}">
-                        <TextBlock Text="{Binding Name}" Foreground="#CCCCCC"/>
-                        <!-- Cinza claro -->
-                    </HierarchicalDataTemplate>
-                </TreeView.ItemTemplate>
-            </TreeView>
-        </Border>
-        <Border Grid.Column="0" Background="Gray" Margin="10,68,10,10" CornerRadius="10">
-            <TreeView x:Name="FileTreeView3" FontSize="15" FontFamily="Consolas" Margin="10"
-                ScrollViewer.VerticalScrollBarVisibility="Hidden" 
-                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                Foreground="#CCCCCC">
-                <TreeView.Style>
-                    <Style TargetType="{x:Type TreeView}">
-                        <Setter Property="BorderBrush" Value="Gray"/>
-                        <Setter Property="BorderThickness" Value="1"/>
-                        <Setter Property="Background" Value="Gray"/>
-                    </Style>
-                </TreeView.Style>
-                <TreeView.ItemContainerStyle>
-                    <Style TargetType="{x:Type TreeViewItem}">
-                        <Setter Property="Foreground" Value="#CCCCCC"/>
-                        <!-- Cinza claro -->
-                    </Style>
-                </TreeView.ItemContainerStyle>
-                <!-- Aqui vamos adicionar os itens da árvore -->
-                <TreeView.ItemTemplate>
-                    <HierarchicalDataTemplate ItemsSource="{Binding Items}">
-                        <TextBlock Text="{Binding Name}" Foreground="#CCCCCC"/>
-                        <!-- Cinza claro -->
-                    </HierarchicalDataTemplate>
-                </TreeView.ItemTemplate>
-            </TreeView>
-        </Border>
+            <dragablz:TabablzControl Grid.Row="0" BorderBrush="#FF333333" Margin="0,-280,0,0">
+                <dragablz:TabablzControl.InterTabController>
+                    <dragablz:InterTabController />
+                </dragablz:TabablzControl.InterTabController>
 
-        <!-- Painel para o terminal e editor de texto -->
-        <Grid Grid.Column="1" Margin="10,68,10,10">
-            <!-- Área do editor de texto -->
+                <dragablz:TabablzControl.Resources>
+                    <Style TargetType="dragablz:DragablzItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="dragablz:DragablzItem">
+                                    <Grid x:Name="templateRoot" Background="Transparent" Margin="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Border x:Name="PART_Border" BorderBrush="#FF333333" BorderThickness="0,0,1,1" Background="#FF333333" Padding="5" Margin="0">
+                                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" Margin="4,2,4,2"/>
+                                        </Border>
+                                        <Button x:Name="PART_CloseButton" Margin="4,2,4,2" Grid.Column="1" Padding="0" Background="Transparent" BorderBrush="{x:Null}">
+                                            <Path Width="10" Height="10" Data="M 0,0 L 1,0 1,1 0,1 Z" Fill="#FF333333" Stretch="Fill"/>
+                                        </Button>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </dragablz:TabablzControl.Resources>
 
-            <!-- Painel para o terminal -->
-            <Border Background="Black" CornerRadius="10" Margin="0,341,0,0">
-                <avalonEdit:TextEditor x:Name="Terminal" Margin="10,10,10,10"/>
-            </Border>
+                <dragablz:TabablzControl.HeaderItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" Foreground="White" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </DataTemplate>
+                </dragablz:TabablzControl.HeaderItemTemplate>
+
+               <TabItem Header="Tab 1">
+                    <!-- Substitua o TextBox pelo TextEditor -->
+                    <avalonedit:TextEditor x:Name="CodeEditor" FontFamily="Consolas" FontSize="16" Foreground="White" Background="#333333" ShowLineNumbers="True" BorderThickness="0"/>
+                </TabItem>
+            </dragablz:TabablzControl>
+
+            <GridSplitter Height="5" HorizontalAlignment="Stretch" VerticalAlignment="Center" ResizeDirection="Rows" Grid.Row="1"/>
+
+            <avalonEdit:TextEditor x:Name="Terminal" Grid.Row="2" Margin="0,5,0,0"/>
+
         </Grid>
+
+
+
+        <!-- Aba inferior -->
+        <StackPanel Grid.ColumnSpan="3" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,10,0,10">
+            <Button Style="{StaticResource CustomMaterialDesignButtonStyle}" Margin="5">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <materialDesign:PackIcon Kind="InformationOutline" Foreground="Gray" Height="25" Width="30"/>
+                    <TextBlock Text="Information" VerticalAlignment="Center" Foreground="Gray" Margin="5,0,5,0"/>
+                </StackPanel>
+            </Button>
+            <Button Style="{StaticResource CustomMaterialDesignButtonStyle}" Margin="5">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <materialDesign:PackIcon Kind="SettingsOutline" Foreground="Gray" Height="25" Width="30"/>
+                    <TextBlock Text="Settings" VerticalAlignment="Center" Foreground="Gray" Margin="5,0,5,0"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
     </Grid>
 </mah:MetroWindow>

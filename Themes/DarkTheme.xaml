@@ -1,0 +1,31 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Dark theme specific resources -->
+
+    <Color x:Key="WindowBackgroundColor">#333333</Color>
+    <Color x:Key="ForegroundColor">#FFFFFF</Color>
+    <Color x:Key="ButtonMouseOverColor">#000000</Color>
+    <Color x:Key="BorderBackgroundColor">#666666</Color>
+    <Color x:Key="PackIconColor">#E0E0E0</Color>
+    <Color x:Key="PackIconColorGround">#E0E0E0</Color>
+    <Color x:Key="PackIconColorSpecial">#DAA520</Color>
+
+    <Color x:Key="TabablzControlBorderColor">#DAA520</Color>
+    <SolidColorBrush x:Key="TabablzControlBorderBrush" Color="{StaticResource TabablzControlBorderColor}" />
+    <SolidColorBrush x:Key="TerminalBackgroundBrush" Color="#000000" />
+    <SolidColorBrush x:Key="TabablzControlBackgroundBrush" Color="#252525" />
+    <SolidColorBrush x:Key="TextBlockForegroundBrush" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="TextBlockForeground" Color="#000000"/>
+    <SolidColorBrush x:Key="TextBlockForegroundBrushGround" Color="#FFFFFF"/>
+
+
+    <SolidColorBrush x:Key="PackIconBrush" Color="{StaticResource PackIconColor}" />
+    <SolidColorBrush x:Key="PackIconBrushGround" Color="{StaticResource PackIconColorGround}" />
+    <SolidColorBrush x:Key="PackIconBrushSpecial" Color="{StaticResource PackIconColorSpecial}" />
+    <SolidColorBrush x:Key="WindowBackgroundBrush" Color="{StaticResource WindowBackgroundColor}" />
+    <SolidColorBrush x:Key="ForegroundBrush" Color="{StaticResource ForegroundColor}" />
+    <SolidColorBrush x:Key="ButtonMouseOverBrush" Color="{StaticResource ButtonMouseOverColor}" />
+    <SolidColorBrush x:Key="BorderBackgroundBrush" Color="{StaticResource BorderBackgroundColor}" />
+
+</ResourceDictionary>

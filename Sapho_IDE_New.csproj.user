@@ -10,13 +10,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="CommonTheme.xaml">
+    <Page Update="Themes\CommonTheme.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="DarkTheme.xaml">
+    <Page Update="Themes\DarkTheme.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="LightTheme.xaml">
+    <Page Update="Themes\LightTheme.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">

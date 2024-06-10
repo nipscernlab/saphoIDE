@@ -46,6 +46,9 @@ namespace Sapho_IDE_New
         {
             InitializeComponent();
 
+            KeyDown += MainWindow_KeyDown;
+
+
             // Carrega a sintaxe de destaque do arquivo XSHD
             using (Stream s = File.OpenRead("CMM.xshd"))
             {
@@ -75,6 +78,7 @@ namespace Sapho_IDE_New
             //ShowWelcomeMessage();
         }
 
+
         /*
         private void ShowWelcomeMessage()
         {
@@ -90,6 +94,7 @@ namespace Sapho_IDE_New
 
         private async void Terminal_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
+            if (e.Key == Key.Enter)
             if (e.Key == Key.Enter)
             {
                 e.Handled = true; // Impede a inserção de nova linha no TextEditor
@@ -149,48 +154,75 @@ namespace Sapho_IDE_New
 
 
         private enum Theme
-{
-    Light,
-    Dark,
-    Purple,
-    Amoled
-}
+        {
+            Light,
+            Dark,
+            Cern,
+            Amoled
+        }
 
-private Theme currentTheme = Theme.Light;
+        private Theme currentTheme = Theme.Light;
 
-private void ThemeToggleButton_Click(object sender, RoutedEventArgs e)
-{
-    switch (currentTheme)
-    {
-        case Theme.Light:
-            // Alterar para o tema escuro
+        private void ThemeToggleButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Limpar os recursos existentes
             Resources.MergedDictionaries.Clear();
-            Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new System.Uri("DarkTheme.xaml", System.UriKind.Relative) });
-            currentTheme = Theme.Dark;
-            break;
-        case Theme.Dark:
-            // Alterar para o tema roxo
-            Resources.MergedDictionaries.Clear();
-            Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new System.Uri("PurpleTheme.xaml", System.UriKind.Relative) });
-            currentTheme = Theme.Purple;
-            break;
-        case Theme.Purple:
-            // Alterar para o tema amoled
-            Resources.MergedDictionaries.Clear();
-            Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new System.Uri("AmoledTheme.xaml", System.UriKind.Relative) });
-            currentTheme = Theme.Amoled;
-            break;
-        case Theme.Amoled:
-            // Alterar para o tema claro
-            Resources.MergedDictionaries.Clear();
-            Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new System.Uri("LightTheme.xaml", System.UriKind.Relative) });
-            currentTheme = Theme.Light;
-            break;
-        default:
-            break;
-    }
-}
 
+            switch (currentTheme)
+            {
+                case Theme.Light:
+                    // Alterar para o tema escuro
+                    Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new System.Uri("/Themes/DarkTheme.xaml", System.UriKind.Relative) });
+                    currentTheme = Theme.Dark;
+                    break;
+                case Theme.Dark:
+                    // Alterar para o tema roxo
+                    Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new System.Uri("/Themes/CernTheme.xaml", System.UriKind.Relative) });
+                    currentTheme = Theme.Cern;
+                    break;
+                case Theme.Cern:
+                    // Alterar para o tema amoled
+                    Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new System.Uri("/Themes/AmoledTheme.xaml", System.UriKind.Relative) });
+                    currentTheme = Theme.Amoled;
+                    break;
+                case Theme.Amoled:
+                    // Alterar para o tema claro
+                    Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new System.Uri("/Themes/LightTheme.xaml", System.UriKind.Relative) });
+                    currentTheme = Theme.Light;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void MainWindow_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            // Verifica se a tecla Ctrl está pressionada
+            if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
+            {
+                // Verifica se a tecla + foi pressionada
+                if (e.Key == Key.OemPlus || e.Key == Key.Add)
+                {
+                    // Aumenta o zoom
+                    AdjustZoom(2.0);
+                }
+                // Verifica se a tecla - foi pressionada
+                else if (e.Key == Key.OemMinus || e.Key == Key.Subtract)
+                {
+                    // Reduz o zoom
+                    AdjustZoom(-2.0);
+                }
+            }
+        }
+
+        private void AdjustZoom(double zoomDelta)
+        {
+            // Ajusta o zoom do TextEditor
+            CodeEditor.FontSize += zoomDelta;
+
+            // Ajusta o zoom do Terminal
+            Terminal.FontSize += zoomDelta;
+        }
 
 
 

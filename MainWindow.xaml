@@ -25,12 +25,14 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="CommonTheme.xaml" />
-                <ResourceDictionary Source="LightTheme.xaml" />
-                <ResourceDictionary Source="DarkTheme.xaml" />
-                <ResourceDictionary Source="PurpleTheme.xaml" />
-                <ResourceDictionary Source="AmoledTheme.xaml" />
+
+                <ResourceDictionary Source="Themes/CernTheme.xaml" />
+                <ResourceDictionary Source="Themes/LightTheme.xaml" />
+                <ResourceDictionary Source="Themes/DarkTheme.xaml" />
+                <ResourceDictionary Source="Themes/AmoledTheme.xaml" />
+                
             </ResourceDictionary.MergedDictionaries>
+
 
             <Style x:Key="CustomMaterialDesignButtonStyle" TargetType="{x:Type Button}">
                 <Setter Property="Foreground" Value="White"/>
@@ -53,8 +55,8 @@
                             </Border>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="Border" Property="Background" Value="#555555"/>
-                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter Property="Background" Value="{StaticResource ButtonMouseOverBrush}" />
+                                    <Setter Property="Foreground"  Value="{StaticResource ButtonMouseOverBrush}"/>
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -201,27 +203,27 @@
                     <Button Style="{StaticResource CustomMaterialDesignButtonStyle}" FontSize="16" VerticalAlignment="Center" Margin="5" Height="40" Width="90">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <materialDesign:PackIcon Foreground="{StaticResource PackIconBrush}" Kind="File" Height="25" Width="25" />
-                            <TextBlock x:Name="FileTextBlock" Text="File" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                            <TextBlock x:Name="FileTextBlock" Foreground="{DynamicResource TextBlockForegroundBrush}" Text="File" VerticalAlignment="Center" Margin="5,0,0,0"/>
                         </StackPanel>
                     </Button>
 
                     <Button Style="{StaticResource CustomMaterialDesignButtonStyle}" FontSize="16" VerticalAlignment="Center" Margin="5" Height="40" Width="90">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <materialDesign:PackIcon Foreground="{StaticResource PackIconBrush}" Kind="ViewList" Height="25" Width="25" />
-                            <TextBlock Text="View" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                            <TextBlock Text="View" Foreground="{DynamicResource TextBlockForegroundBrush}" VerticalAlignment="Center" Margin="5,0,0,0"/>
                         </StackPanel>
                     </Button>
 
                     <Button Style="{StaticResource CustomMaterialDesignButtonStyle}" FontSize="16" VerticalAlignment="Center" Margin="5" Height="40" Width="90">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <materialDesign:PackIcon Foreground="{StaticResource PackIconBrush}" Kind="HelpCircleOutline" Height="25" Width="25" />
-                            <TextBlock Text="Help" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                            <TextBlock Text="Help" Foreground="{DynamicResource TextBlockForegroundBrush}" VerticalAlignment="Center" Margin="5,0,0,0"/>
                         </StackPanel>
                     </Button>
                     <Button Style="{StaticResource CustomMaterialDesignButtonStyle}" FontSize="16" VerticalAlignment="Center" Margin="5" Height="40" Width="90" Click="ThemeToggleButton_Click">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <materialDesign:PackIcon Foreground="{StaticResource PackIconBrush}" Kind="ThemeLightDark" Height="25" Width="25" />
-                            <TextBlock Text="Theme" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                            <TextBlock Text="Theme" Foreground="{DynamicResource TextBlockForegroundBrush}" VerticalAlignment="Center" Margin="5,0,0,0"/>
                         </StackPanel>
                     </Button>
 
@@ -232,35 +234,35 @@
         <!-- Menu à esquerda -->
         <StackPanel Margin="10,53,0,54" HorizontalAlignment="Left">
             <ListBox>
-                <ListBoxItem>
-                    <Button Style="{StaticResource CustomMaterialDesignButtonStyle}" ContextMenu="{StaticResource ToyBrickContextMenu}">
+                <ListBoxItem Foreground="{DynamicResource TextBlockForeground}">
+                    <Button Style="{StaticResource CustomMaterialDesignButtonStyle}" ContextMenu="{StaticResource ToyBrickContextMenu}" Margin="5">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <materialDesign:PackIcon Foreground="{StaticResource PackIconBrushSpecial}" Kind="ToyBrick" Height="25" Width="30"/>
-                            <TextBlock Text="Build" VerticalAlignment="Center" Foreground="Gray" Margin="5,0,5,0"/>
+                            <TextBlock Text="Build" VerticalAlignment="Center" Foreground="{DynamicResource TextBlockForegroundBrush}" Margin="5,0,6,0"/>
                         </StackPanel>
                     </Button>
                 </ListBoxItem>
-                <ListBoxItem>
+                <ListBoxItem Foreground="{DynamicResource TextBlockForeground}" >
                     <Button Style="{StaticResource CustomMaterialDesignButtonStyle}" Margin="5">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <materialDesign:PackIcon Foreground="{StaticResource PackIconBrush}" Kind="Xml" Height="25" Width="30"/>
-                            <TextBlock Text="XML" VerticalAlignment="Center" Foreground="Gray" Margin="5,0,5,0"/>
+                            <TextBlock Text="XML" VerticalAlignment="Center" Foreground="{DynamicResource TextBlockForegroundBrush}" Margin="5,0,6,0"/>
                         </StackPanel>
                     </Button>
                 </ListBoxItem>
-                <ListBoxItem>
+                <ListBoxItem Foreground="{DynamicResource TextBlockForeground}">
                     <Button Style="{StaticResource CustomMaterialDesignButtonStyle}" Margin="5">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <materialDesign:PackIcon Foreground="{StaticResource PackIconBrush}" Kind="Database" Height="25" Width="30"/>
-                            <TextBlock Text="Database" VerticalAlignment="Center" Foreground="Gray" Margin="5,0,5,0"/>
+                            <TextBlock Text="Database" VerticalAlignment="Center" Foreground="{DynamicResource TextBlockForegroundBrush}" Margin="5,0,6,0"/>
                         </StackPanel>
                     </Button>
                 </ListBoxItem>
-                <ListBoxItem>
+                <ListBoxItem Foreground="{DynamicResource TextBlockForeground}">
                     <Button Style="{StaticResource CustomMaterialDesignButtonStyle}" Margin="5">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <materialDesign:PackIcon Foreground="{StaticResource PackIconBrush}" Kind="FileCodeOutline" Height="25" Width="30"/>
-                            <TextBlock Text="Code" VerticalAlignment="Center" Foreground="Gray" Margin="5,0,5,0"/>
+                            <TextBlock Text="Code" VerticalAlignment="Center" Foreground="{DynamicResource TextBlockForegroundBrush}" Margin="5,0,6,0"/>
                         </StackPanel>
                     </Button>
                 </ListBoxItem>
@@ -305,19 +307,19 @@
 
                 <dragablz:TabablzControl.HeaderItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding}" Foreground="White" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding}" Foreground="Black" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     </DataTemplate>
                 </dragablz:TabablzControl.HeaderItemTemplate>
 
                <TabItem Header="Tab 1">
                     <!-- Substitua o TextBox pelo TextEditor -->
-                    <avalonedit:TextEditor x:Name="CodeEditor" FontFamily="Consolas" FontSize="16" Foreground="White" Background="#333333" ShowLineNumbers="True" BorderThickness="0"/>
+                    <avalonedit:TextEditor x:Name="CodeEditor" FontFamily="Consolas" FontSize="16" Foreground="White" Background="{DynamicResource TabablzControlBackgroundBrush}" ShowLineNumbers="True" BorderThickness="0"/>
                 </TabItem>
             </dragablz:TabablzControl>
 
-            <GridSplitter Height="5" HorizontalAlignment="Stretch" VerticalAlignment="Center" ResizeDirection="Rows" Grid.Row="1"/>
+            <GridSplitter Background="{DynamicResource ForegroundBrush}" Height="5" HorizontalAlignment="Stretch" VerticalAlignment="Center" ResizeDirection="Rows" Grid.Row="1"/>
 
-            <avalonEdit:TextEditor x:Name="Terminal" Grid.Row="2" Margin="0,5,0,0"/>
+            <avalonEdit:TextEditor x:Name="Terminal" Grid.Row="2" Margin="0,5,0,0" Background="{DynamicResource TerminalBackgroundBrush}" />
 
         </Grid>
 
@@ -327,14 +329,14 @@
         <StackPanel Grid.ColumnSpan="3" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,10,0,10">
             <Button Style="{StaticResource CustomMaterialDesignButtonStyle}" Margin="5">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <materialDesign:PackIcon Kind="InformationOutline" Foreground="Gray" Height="25" Width="30"/>
-                    <TextBlock Text="Information" VerticalAlignment="Center" Foreground="Gray" Margin="5,0,5,0"/>
+                    <materialDesign:PackIcon Kind="InformationOutline" Foreground="{StaticResource PackIconBrushGround}" Height="25" Width="30"/>
+                    <TextBlock Text="Information" VerticalAlignment="Center" Foreground="{DynamicResource TextBlockForegroundBrushGround}" Margin="5,0,5,0"/>
                 </StackPanel>
             </Button>
             <Button Style="{StaticResource CustomMaterialDesignButtonStyle}" Margin="5">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <materialDesign:PackIcon Kind="SettingsOutline" Foreground="Gray" Height="25" Width="30"/>
-                    <TextBlock Text="Settings" VerticalAlignment="Center" Foreground="Gray" Margin="5,0,5,0"/>
+                    <materialDesign:PackIcon Kind="SettingsOutline" Foreground="{StaticResource PackIconBrushGround}" Height="25" Width="30"/>
+                    <TextBlock Text="Settings" VerticalAlignment="Center" Foreground="{DynamicResource TextBlockForegroundBrushGround}" Margin="5,0,5,0"/>
                 </StackPanel>
             </Button>
         </StackPanel>

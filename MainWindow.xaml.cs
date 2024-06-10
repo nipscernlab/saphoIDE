@@ -1,156 +1,184 @@
-﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
-using ICSharpCode.AvalonEdit;
-using System.Windows.Forms; // Added this line at the top of the file
-using System.Windows;
-using System.Windows.Forms.Integration;
-using System.Windows.Controls;
-using System.Windows.Input;
-using ICSharpCode.AvalonEdit;
-using System.Xml;
+﻿using ICSharpCode.AvalonEdit.CodeCompletion;
+using ICSharpCode.AvalonEdit.Document;
+using ICSharpCode.AvalonEdit.Editing;
 using ICSharpCode.AvalonEdit.Highlighting;
 using ICSharpCode.AvalonEdit.Highlighting.Xshd;
-
-using WpfButton = System.Windows.Controls.Button;
-using FormsButton = System.Windows.Forms.Button;
-using WpfMessageBox = System.Windows.MessageBox;
-using FormsMessageBox = System.Windows.Forms.MessageBox;
-using WpfOpenFileDialog = Microsoft.Win32.OpenFileDialog;
-using FormsOpenFileDialog = System.Windows.Forms.OpenFileDialog;
-using WpfOrientation = System.Windows.Controls.Orientation;
-using FormsOrientation = System.Windows.Forms.Orientation;
-using WpfKeyEventArgs = System.Windows.Input.KeyEventArgs;
-using FormsKeyEventArgs = System.Windows.Forms.KeyEventArgs;
-using System.Windows.Documents;
-using System.Text;
-using System.Windows.Media.Animation;
-using System.Windows.Interop;
-using System.Diagnostics;
 using MahApps.Metro.Controls;
+using System.Diagnostics;
+using System.IO;
+using System.Windows;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Xml;
 
 
 namespace Sapho_IDE_New
 {
     public partial class MainWindow : MetroWindow
     {
-
-        private string currentDirectory = Directory.GetCurrentDirectory(); // Armazena o diretório atual
+        private CompletionWindow completionWindow;
+        private const double MinFontSize = 10.0;  // Tamanho mínimo da fonte
+        private const double MaxFontSize = 60.0; // Tamanho máximo da fonte
+        private string currentDirectory = Directory.GetCurrentDirectory(); // Stores the current directory
+        private readonly IList<MyCompletionData> completionDataList = new List<MyCompletionData>();
 
         public MainWindow()
         {
             InitializeComponent();
-
+            InitializeTerminal();
             KeyDown += MainWindow_KeyDown;
 
-
-            // Carrega a sintaxe de destaque do arquivo XSHD
+            // Load syntax highlighting from XSHD file
             using (Stream s = File.OpenRead("CMM.xshd"))
             {
-                if (s != null)
+                using (XmlTextReader reader = new XmlTextReader(s))
                 {
-                    using (XmlTextReader reader = new XmlTextReader(s))
-                    {
-                        CodeEditor.SyntaxHighlighting = HighlightingLoader.Load(reader, HighlightingManager.Instance);
-                        
-                    }
+                    CodeEditor.SyntaxHighlighting = HighlightingLoader.Load(reader, HighlightingManager.Instance);
                 }
             }
 
+            // Populate completion data list
+            string[] keywords = { "for", "while", "if", "else", "do", "switch", "case", "default", "break", "continue", "return", "void", "int", "char", "float", "double", "bool", "true", "false", "null", "struct", "class" };
+            foreach (string keyword in keywords)
+            {
+                completionDataList.Add(new MyCompletionData(keyword));
+            }
 
-
-            // Ajusta a configuração inicial do terminal
+            // Initial terminal configuration
             Terminal.ShowLineNumbers = false;
             Terminal.WordWrap = true;
-            Terminal.FontFamily = new FontFamily("Consolas"); // Define a fonte
-            Terminal.FontSize = 16; // Ajusta o tamanho da fonte
-            Terminal.Foreground = Brushes.White; // Define a cor do texto como branco
+            Terminal.FontFamily = new FontFamily("Consolas"); // Set the font
+            Terminal.FontSize = 16; // Set the font size
+            Terminal.Foreground = Brushes.White; // Set text color to white
 
-            // Adiciona manipulador de evento para detectar a tecla Enter
+            // Add event handler to detect Enter key
             Terminal.TextArea.KeyDown += Terminal_KeyDown;
 
-            // Exibe uma mensagem de boas-vindas no terminal Avalon
-            //ShowWelcomeMessage();
+            // Add event handler for auto-complete
+            CodeEditor.TextArea.TextEntering += TextArea_TextEntering;
+            CodeEditor.TextArea.TextEntered += TextArea_TextEntered;
         }
 
-
-        /*
-        private void ShowWelcomeMessage()
+        private void InitializeTerminal()
         {
-            // Mensagem de boas-vindas
-            string welcomeMessage = $"Bem-vindo à Sapho IDE!\n\n" +
-                                     $"Esta é uma ferramenta poderosa para desenvolvimento de software.\n" +
-                                     $"Digite os comandos no terminal abaixo e pressione Enter para executá-los.\n" +
-                                     $"Experimente digitar 'help' para obter ajuda.\n\n";
+            // Configure terminal appearance
+            Terminal.FontFamily = new FontFamily("Consolas");
+            Terminal.FontSize = 16;
+            Terminal.Foreground = Brushes.White;
 
-            // Adiciona a mensagem de boas-vindas ao terminal
-            Terminal.AppendText(welcomeMessage);
-        }*/
+            // Set initial terminal prompt
+            DisplayPrompt();
 
-        private async void Terminal_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+            // Add event handler for Enter key press
+            Terminal.KeyDown += Terminal_KeyDown;
+        }
+
+        private void DisplayPrompt()
         {
-            if (e.Key == Key.Enter)
+            Terminal.AppendText($"{currentDirectory}> ");
+            Terminal.CaretOffset = Terminal.Text.Length;
+            Terminal.IsReadOnly = false; // torna a área de texto somente leitura
+        }
+
+        private async void Terminal_KeyDown(object sender, KeyEventArgs e)
+        {
             if (e.Key == Key.Enter)
             {
-                e.Handled = true; // Impede a inserção de nova linha no TextEditor
+                e.Handled = true; // Prevenir nova linha
 
-                // Obtém o comando digitado pelo usuário
-                string command = Terminal.Document.Text.Trim();
+                // Obter o comando inserido pelo usuário
+                string command = Terminal.Text.TrimEnd(); // Remover espaços em branco extras
 
                 if (!string.IsNullOrEmpty(command))
                 {
-                    // Imprime o diretório atual e o último comando executado
-                    Terminal.AppendText($"\n{currentDirectory}> {command}\n");
+                    // Exibir o comando no terminal Avalon antes de executá-lo
+                    Terminal.AppendText($"{currentDirectory}> {command}{Environment.NewLine}");
 
-                    // Executa o comando e exibe a resposta no terminal
-                    await ExecuteCommand(command);
+                    // Se o comando for uma mudança de diretório, atualize o diretório atual
+                    if (command.StartsWith("cd ", StringComparison.OrdinalIgnoreCase))
+                    {
+                        string newDirectory = command.Substring(3).Trim(); // Remove "cd " do início do comando
+                        if (!Path.IsPathRooted(newDirectory))
+                        {
+                            // Se o novo diretório não for um caminho absoluto, combine-o com o diretório atual
+                            newDirectory = Path.Combine(currentDirectory, newDirectory);
+                        }
+                        if (Directory.Exists(newDirectory))
+                        {
+                            // Se o novo diretório existir, atualize o diretório atual
+                            currentDirectory = newDirectory;
+                            // Exiba o novo diretório
+                            Terminal.AppendText($"{currentDirectory}> ");
+                        }
+                        else
+                        {
+                            // Se o novo diretório não existir, exiba uma mensagem de erro
+                            Terminal.AppendText($"Directory '{newDirectory}' not found{Environment.NewLine}");
+                            // Exiba o diretório atual
+                            Terminal.AppendText($"{currentDirectory}> ");
+                        }
+                    }
+                    else
+                    {
+                        // Se o comando não for uma mudança de diretório, execute-o normalmente
+                        await ExecuteCommand(command);
+                        // Adicionar um novo prompt para o próximo comando
+                        Terminal.AppendText(Environment.NewLine);
+                        Terminal.AppendText($"{currentDirectory}> ");
+                    }
                 }
             }
+            else if (e.Key == Key.Enter && (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)))
+            {
+                e.Handled = true; // Prevenir nova linha
+            }
         }
+
+
 
         private async Task ExecuteCommand(string command)
         {
             try
             {
-                // Define as configurações do processo
+                // Process settings
                 ProcessStartInfo startInfo = new ProcessStartInfo
                 {
                     FileName = "cmd.exe",
-                    Arguments = $"/c cd /d {currentDirectory} & {command}", // Muda para o diretório atual e executa o comando
-                    RedirectStandardOutput = true, // Redireciona a saída para que possamos lê-la
-                    UseShellExecute = false, // Necessário para redirecionar a saída
-                    CreateNoWindow = true // Não exibir a janela do prompt de comando
+                    Arguments = $"/c cd /d {currentDirectory} & {command}", // Change to the current directory and execute the command
+                    RedirectStandardOutput = true, // Redirect output to read it
+                    RedirectStandardError = true, // Redirect standard error to read it
+                    UseShellExecute = false, // Required to redirect output
+                    CreateNoWindow = true // Do not show the command prompt window
                 };
 
-                // Cria o processo
-                using (Process process = new Process())
+                using (Process process = new Process { StartInfo = startInfo })
                 {
-                    process.StartInfo = startInfo;
-
-                    // Inicia o processo
                     process.Start();
 
-                    // Lê a saída do processo de forma assíncrona
-                    string output = await process.StandardOutput.ReadToEndAsync();
+                    // Read standard output and standard error asynchronously
+                    Task<string> outputTask = process.StandardOutput.ReadToEndAsync();
+                    Task<string> errorTask = process.StandardError.ReadToEndAsync();
 
-                    // Aguarda o término do processo
-                    process.WaitForExit();
+                    // Wait for both tasks to complete
+                    await Task.WhenAll(outputTask, errorTask);
 
-                    // Adiciona a resposta ao terminal
-                    Terminal.AppendText(output);
+                    // Get the output and error messages
+                    string output = outputTask.Result;
+                    string error = errorTask.Result;
+
+                    // Combine output and error messages
+                    string result = output + error;
+
+                    Terminal.AppendText(result); // Add the response to the terminal
                 }
             }
             catch (Exception ex)
             {
-                // Em caso de exceção, exibe uma mensagem de erro
-                WpfMessageBox.Show($"Erro ao executar o comando: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                Terminal.AppendText($"Error executing command: {ex.Message}");
             }
         }
+
+
 
 
         private enum Theme
@@ -165,67 +193,205 @@ namespace Sapho_IDE_New
 
         private void ThemeToggleButton_Click(object sender, RoutedEventArgs e)
         {
-            // Limpar os recursos existentes
             Resources.MergedDictionaries.Clear();
 
             switch (currentTheme)
             {
                 case Theme.Light:
-                    // Alterar para o tema escuro
-                    Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new System.Uri("/Themes/DarkTheme.xaml", System.UriKind.Relative) });
+                    Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("/Themes/DarkTheme.xaml", UriKind.Relative) });
                     currentTheme = Theme.Dark;
                     break;
                 case Theme.Dark:
-                    // Alterar para o tema roxo
-                    Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new System.Uri("/Themes/CernTheme.xaml", System.UriKind.Relative) });
+                    Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("/Themes/CernTheme.xaml", UriKind.Relative) });
                     currentTheme = Theme.Cern;
                     break;
                 case Theme.Cern:
-                    // Alterar para o tema amoled
-                    Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new System.Uri("/Themes/AmoledTheme.xaml", System.UriKind.Relative) });
+                    Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("/Themes/AmoledTheme.xaml", UriKind.Relative) });
                     currentTheme = Theme.Amoled;
                     break;
                 case Theme.Amoled:
-                    // Alterar para o tema claro
-                    Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new System.Uri("/Themes/LightTheme.xaml", System.UriKind.Relative) });
+                    Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("/Themes/LightTheme.xaml", UriKind.Relative) });
                     currentTheme = Theme.Light;
-                    break;
-                default:
                     break;
             }
         }
 
-        private void MainWindow_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void MainWindow_KeyDown(object sender, KeyEventArgs e)
         {
-            // Verifica se a tecla Ctrl está pressionada
-            if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
+            if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && (e.Key == Key.OemPlus || e.Key == Key.Add))
             {
-                // Verifica se a tecla + foi pressionada
-                if (e.Key == Key.OemPlus || e.Key == Key.Add)
-                {
-                    // Aumenta o zoom
-                    AdjustZoom(2.0);
-                }
-                // Verifica se a tecla - foi pressionada
-                else if (e.Key == Key.OemMinus || e.Key == Key.Subtract)
-                {
-                    // Reduz o zoom
-                    AdjustZoom(-2.0);
-                }
+                AdjustZoom(2.0); // Increase zoom
+            }
+            else if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && (e.Key == Key.OemMinus || e.Key == Key.Subtract))
+            {
+                AdjustZoom(-2.0); // Decrease zoom
             }
         }
 
         private void AdjustZoom(double zoomDelta)
         {
-            // Ajusta o zoom do TextEditor
-            CodeEditor.FontSize += zoomDelta;
+            double newEditorFontSize = CodeEditor.FontSize + zoomDelta;
+            double newTerminalFontSize = Terminal.FontSize + zoomDelta;
 
-            // Ajusta o zoom do Terminal
-            Terminal.FontSize += zoomDelta;
+            // Ajuste o tamanho da fonte do editor de código dentro dos limites
+            if (newEditorFontSize >= MinFontSize && newEditorFontSize <= MaxFontSize)
+            {
+                CodeEditor.FontSize = newEditorFontSize;
+            }
+
+            // Ajuste o tamanho da fonte do terminal dentro dos limites
+            if (newTerminalFontSize >= MinFontSize && newTerminalFontSize <= MaxFontSize)
+            {
+                Terminal.FontSize = newTerminalFontSize;
+            }
+        }
+
+        private void TextArea_TextEntered(object sender, TextCompositionEventArgs e)
+        {
+            if (completionWindow != null)
+            {
+                return;
+            }
+
+            // Define common C keywords for autocomplete
+            string[] keywords = { "for", "while", "if", "else", "do", "switch", "case", "default", "break", "continue", "return", "void", "int", "char", "float", "double", "bool", "true", "false", "null", "struct", "class" };
+
+            if (char.IsLetter(e.Text[0]))
+            {
+                completionWindow = new CompletionWindow(CodeEditor.TextArea);
+                IList<ICompletionData> data = completionWindow.CompletionList.CompletionData;
+                foreach (string keyword in keywords)
+                {
+                    data.Add(new MyCompletionData(keyword));
+                }
+                // Filter the data based on the input text
+                var filteredData = data.Cast<MyCompletionData>().Where(item => item.Text.StartsWith(e.Text, StringComparison.InvariantCultureIgnoreCase)).OrderBy(item => item.GetRelevance(e.Text)).ToList();
+                completionWindow.CompletionList.CompletionData.Clear();
+                foreach (var item in filteredData)
+                {
+                    completionWindow.CompletionList.CompletionData.Add(item);
+                }
+
+                completionWindow.Show();
+                completionWindow.Closed += delegate
+                {
+                    completionWindow = null;
+                };
+
+                ApplyCompletionWindowStyles(completionWindow);
+            }
         }
 
 
 
+        private void ApplyCompletionWindowStyles(CompletionWindow completionWindow)
+        {
+
+            // Defina a cor de fundo
+            completionWindow.Background = Brushes.White; // Define a cor de fundo como preto
+
+            // Defina a cor do texto
+            completionWindow.Foreground = Brushes.Black; // Define a cor do texto como branco
+            completionWindow.CompletionList.FontFamily = new FontFamily("Arial"); // Define a fonte como Arial
+
+
+            var resources = new ResourceDictionary();
+            resources.MergedDictionaries.Add(Application.Current.Resources);
+            completionWindow.Resources = resources;
+
+            // Set the most relevant item as the selected item
+            if (completionWindow.CompletionList.CompletionData.Count > 0)
+            {
+                completionWindow.CompletionList.SelectedItem = completionWindow.CompletionList.CompletionData[0];
+            }
+
+        }
+
+
+        private void TextArea_TextEntering(object sender, TextCompositionEventArgs e)
+        {
+            if (e.Text.Length > 0 && completionWindow != null)
+            {
+                if (!char.IsLetterOrDigit(e.Text[0]))
+                {
+                    completionWindow.CompletionList.RequestInsertion(e);
+                }
+            }
+
+            // Auto-closing brackets and quotes
+            if (e.Text == "(")
+            {
+                CodeEditor.TextArea.Document.Insert(CodeEditor.TextArea.Caret.Offset, ")");
+                CodeEditor.TextArea.Caret.Offset--;
+            }
+            else if (e.Text == "{")
+            {
+                CodeEditor.TextArea.Document.Insert(CodeEditor.TextArea.Caret.Offset, "}");
+                CodeEditor.TextArea.Caret.Offset--;
+            }
+            else if (e.Text == "[")
+            {
+                CodeEditor.TextArea.Document.Insert(CodeEditor.TextArea.Caret.Offset, "]");
+                CodeEditor.TextArea.Caret.Offset--;
+            }
+            else if (e.Text == "\"")
+            {
+                CodeEditor.TextArea.Document.Insert(CodeEditor.TextArea.Caret.Offset, "\"");
+                CodeEditor.TextArea.Caret.Offset--;
+            }
+            else if (e.Text == "'")
+            {
+                CodeEditor.TextArea.Document.Insert(CodeEditor.TextArea.Caret.Offset, "'");
+                CodeEditor.TextArea.Caret.Offset--;
+            }
+        }
+    }
+
+    // Define the completion data class
+    public class MyCompletionData : ICompletionData
+    {
+        public MyCompletionData(string text)
+        {
+            Text = text;
+        }
+
+        public System.Windows.Media.ImageSource Image => null;
+
+        public string Text { get; private set; }
+
+        // Use this property if you want to show some fancy UIElement in the list
+        public object Content => Text;
+
+        public object Description => "C keyword";
+
+        public double Priority => 0;
+
+        public void Complete(TextArea textArea, ISegment completionSegment, EventArgs insertionRequestEventArgs)
+        {
+            int startOffset = completionSegment.Offset;
+
+            // Find the beginning of the word to be replaced
+            while (startOffset > 0 && char.IsLetterOrDigit(textArea.Document.GetCharAt(startOffset - 1)))
+            {
+                startOffset--;
+            }
+
+            // Replace the word
+            textArea.Document.Replace(startOffset, completionSegment.EndOffset - startOffset, Text);
+        }
+
+        // Method to calculate relevance based on the similarity with the input
+        public int GetRelevance(string input)
+        {
+            if (Text.StartsWith(input, StringComparison.InvariantCultureIgnoreCase))
+            {
+                return 0; // Exact match
+            }
+            if (Text.Contains(input, StringComparison.InvariantCultureIgnoreCase))
+            {
+                return 1; // Partial match
+            }
+            return 2; // No match
+        }
     }
 }
-

@@ -17,6 +17,7 @@
           "MahApps.Metro": "2.4.10",
           "MahApps.Metro.IconPacks": "4.11.0",
           "MaterialDesignThemes": "5.0.0",
+          "Microsoft.Web.WebView2": "1.0.2535.41",
           "Newtonsoft.Json": "13.0.3",
           "PresentationFramework.Aero2": "1.0.1",
           "Terminal.Gui": "1.17.0",
@@ -278,6 +279,39 @@
       },
       "Microsoft.NETCore.Platforms/7.0.0": {},
       "Microsoft.NETCore.Targets/1.1.0": {},
+      "Microsoft.Web.WebView2/1.0.2535.41": {
+        "runtime": {
+          "lib/netcoreapp3.0/Microsoft.Web.WebView2.Core.dll": {
+            "assemblyVersion": "1.0.2535.41",
+            "fileVersion": "1.0.2535.41"
+          },
+          "lib/netcoreapp3.0/Microsoft.Web.WebView2.WinForms.dll": {
+            "assemblyVersion": "1.0.2535.41",
+            "fileVersion": "1.0.2535.41"
+          },
+          "lib/netcoreapp3.0/Microsoft.Web.WebView2.Wpf.dll": {
+            "assemblyVersion": "1.0.2535.41",
+            "fileVersion": "1.0.2535.41"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/win-arm64/native/WebView2Loader.dll": {
+            "rid": "win-arm64",
+            "assetType": "native",
+            "fileVersion": "1.0.2535.41"
+          },
+          "runtimes/win-x64/native/WebView2Loader.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "1.0.2535.41"
+          },
+          "runtimes/win-x86/native/WebView2Loader.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "1.0.2535.41"
+          }
+        }
+      },
       "Microsoft.Xaml.Behaviors.Wpf/1.1.39": {
         "runtime": {
           "lib/net5.0-windows7.0/Microsoft.Xaml.Behaviors.dll": {
@@ -880,6 +914,13 @@
       "sha512": "sha512-aOZA3BWfz9RXjpzt0sRJJMjAscAUm3Hoa4UWAfceV9UTYxgwZ1lZt5nO2myFf+/jetYQo4uTP7zS8sJY67BBxg==",
       "path": "microsoft.netcore.targets/1.1.0",
       "hashPath": "microsoft.netcore.targets.1.1.0.nupkg.sha512"
+    },
+    "Microsoft.Web.WebView2/1.0.2535.41": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-E3rAxpp2GVtg99wlRBjIM5YeCXFvhPQuHGn/rfxjAJLNbKfiflliljtY/aJBkMmCzf/KmDhTTmU1hoOsEtuW+Q==",
+      "path": "microsoft.web.webview2/1.0.2535.41",
+      "hashPath": "microsoft.web.webview2.1.0.2535.41.nupkg.sha512"
     },
     "Microsoft.Xaml.Behaviors.Wpf/1.1.39": {
       "type": "package",

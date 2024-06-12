@@ -1,0 +1,17 @@
+2024/06/12-17:54:36.101 50ec Reusing MANIFEST C:\Users\chrys\Desktop\Github\saphoIDE\bin\Debug\net8.0-windows\Sapho_IDE_New.exe.WebView2\EBWebView\Default\Local Storage\leveldb/MANIFEST-000001
+2024/06/12-17:54:36.112 50ec Recovering log #36
+2024/06/12-17:54:36.112 50ec Level-0 table #39: started
+2024/06/12-17:54:36.120 50ec Level-0 table #39: 18243 bytes OK
+2024/06/12-17:54:36.127 50ec Delete type=0 #36
+2024/06/12-17:55:30.655 3804 Level-0 table #42: started
+2024/06/12-17:55:30.665 3804 Level-0 table #42: 18244 bytes OK
+2024/06/12-17:55:30.667 3804 Delete type=0 #40
+2024/06/12-17:55:30.668 3804 Compacting 4@0 + 1@1 files
+2024/06/12-17:55:30.678 3804 Generated table #43@0: 15 keys, 39783 bytes
+2024/06/12-17:55:30.678 3804 Compacted 4@0 + 1@1 files => 39783 bytes
+2024/06/12-17:55:30.679 3804 compacted to: files[ 0 1 1 0 0 0 0 ]
+2024/06/12-17:55:30.681 3804 Delete type=2 #32
+2024/06/12-17:55:30.681 3804 Delete type=2 #34
+2024/06/12-17:55:30.681 3804 Delete type=2 #37
+2024/06/12-17:55:30.681 3804 Delete type=2 #39
+2024/06/12-17:55:30.681 3804 Delete type=2 #42

@@ -10,6 +10,9 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Xml;
+using System;
+using System.Windows;
+using System.Windows.Controls;
 
 
 namespace Sapho_IDE_New
@@ -57,6 +60,35 @@ namespace Sapho_IDE_New
             // Add event handler for auto-complete
             CodeEditor.TextArea.TextEntering += TextArea_TextEntering;
             CodeEditor.TextArea.TextEntered += TextArea_TextEntered;
+        }
+
+        private async void OpenAIBrowser_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // Alternar a visibilidade do BrowserMenu
+                if (AIBrowser.Visibility == Visibility.Collapsed)
+                {
+                    // Configurar e mostrar o navegador embutido
+                    AIBrowser.Visibility = Visibility.Visible;
+
+                    // Certificar-se de que o WebView2 está inicializado antes de navegar
+                    await AIBrowser.EnsureCoreWebView2Async(null);
+                    AIBrowser.CoreWebView2.Navigate("https://chatgpt.com");
+
+                    // Agora que o menu está aberto, definimos sua visibilidade como Visible
+                    AIBrowser.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    // Fechar o menu, já que está aberto
+                    AIBrowser.Visibility = Visibility.Collapsed;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to open browser: " + ex.Message);
+            }
         }
 
         private void InitializeTerminal()
